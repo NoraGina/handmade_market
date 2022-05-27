@@ -219,7 +219,7 @@ public function bindLinkItems(){
        
         
             $output .="<li class='nav-item'>".
-     "<a class='nav-link active' aria-current='page' href='/HandMadeMarket/filtredProducts/".$id."'>".$name."</a>".
+     "<a class='nav-link active' aria-current='page' href='/HandMadeMarket/filteredProducts/".$id."'>".$name."</a>".
       " </li>";
         
        

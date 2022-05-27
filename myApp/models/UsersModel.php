@@ -21,7 +21,7 @@ class UsersModel extends DBModel
     //add user
     public function addUser($name,$user, $email,$pass,$hPass, $role ){
         
-        $q = "INSERT INTO `users`(`fullName`,`userName`, `email`,`pass`, `hashedPassword`, `role`) VALUES (?, ?, ?, ?, ?, ?);";
+        $q = "INSERT INTO `users`(`fullName`,`userName`, `email`,`password`, `hashedPassword`, `role`) VALUES (?, ?, ?, ?, ?, ?);";
         // prepared statements
         $myPrep = $this->db()->prepare($q);
         // s - string, i - integer, d - double, b - blob
