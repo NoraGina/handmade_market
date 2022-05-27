@@ -10,5 +10,5 @@ RewriteEngine On
 RewriteRule ^([\w]+)$ ?page=$1 [L]
 RewriteRule ^([\w]+)/([\w]+)$ ?page=$1&id=$2 [L]
 
-ErrorDocument 404 /TestHandMade/errors/error404.html
-ErrorDocument 403 /TestHandMade/errors/error403.html
+ErrorDocument 404 /HandMadeMarket/errors/error404.html
+ErrorDocument 403 /HandMadeMarket/errors/error403.html

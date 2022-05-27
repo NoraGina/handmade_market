@@ -8,10 +8,12 @@ class HomeController extends AppController
 
     public function init(){
         echo __FILE__;
-        // include APP_PATH.VIEWS.'layout.html';
+        
        
         session_start();
         if(isset($_SESSION['user']) && isset($_SESSION['cart'])){
+            $product = new ProductsModel;
+            $products = $product->getAllProducts();
             $loggedInUser=$_SESSION['user'];
             // var_dump($_SESSION['user']);
             // echo"<br>";
@@ -22,8 +24,7 @@ class HomeController extends AppController
             $user = $newUser->getOne($loggedInUser);
             //$myUser = $loggedInUser['userName'];
             $role =$user['role'];
-            $product = new ProductsModel;
-            $products = $product->getAllProducts();
+            
                //echo'<pre>';
                //var_dump($products);
               // echo'</pre>';
@@ -47,24 +48,31 @@ class HomeController extends AppController
                      echo $this->render(APP_PATH.VIEWS.'customerView.html',$data);
                      //cart
 
-                 }else{
-                     $data['mainContent']="<h2 class='fst-italic text-success text-uppercase'>Hello  $loggedInUser  </h2>";
-                     $data['mainContent'] .= "<h2 class='fst-italic text-danger '>Nu sunt produse  </h2>";
-                
-                     echo $this->render(APP_PATH.VIEWS.'customerView.html',$data);
-                }
+                    }else{
+                        $data['mainContent']="<h2 class='fst-italic text-success text-uppercase'>Hello  $loggedInUser  </h2>";
+                        $data['mainContent'] .= "<h2 class='fst-italic text-danger '>Nu sunt produse  </h2>";
+                    
+                        echo $this->render(APP_PATH.VIEWS.'customerView.html',$data);
+                    }
              
                 
             }
         }else{
-            $product = new ProductsModel;
-            $products = $product->getAllProducts();
-            $data['title'] = 'Home PAGE';
-            $data['navList'] = $this->bindLinkItems();
-            $data['cards'] = $this->showProducts($products);
-            $data['mainContent'] = $this->render(APP_PATH.VIEWS.'mainHomeView.html', $data);
+            if(!empty($products)){
+                $data['title'] = 'Home PAGE';
+                $data['navList'] = $this->bindLinkItems();
+                $data['cards'] = $this->showProducts($products);
+                $data['mainContent'] = $this->render(APP_PATH.VIEWS.'mainHomeView.html', $data);
         
-            echo $this->render(APP_PATH.VIEWS.'layout.html',$data);
+                echo $this->render(APP_PATH.VIEWS.'publicLayoutView.html',$data);
+            }else{
+                $data['title'] = 'Home PAGE';
+                $data['navList'] = $this->bindLinkItems();
+                $data['mainContent'] = "<h2 class='fst-italic text-danger '>Nu sunt produse  </h2>";
+                echo $this->render(APP_PATH.VIEWS.'publicLayoutView.html',$data);
+            }
+            
+            
         }
         
     }
@@ -208,10 +216,10 @@ public function bindLinkItems(){
     foreach($categories as $category){
         $id = $category['id'];
         $name = $category['name'];
-       // $stringLink =$this->urlString($name);
+       
         
             $output .="<li class='nav-item'>".
-     "<a class='nav-link active' aria-current='page' href='/TestHandMade/filtredProducts/".$id."'>".$name."</a>".
+     "<a class='nav-link active' aria-current='page' href='/HandMadeMarket/filtredProducts/".$id."'>".$name."</a>".
       " </li>";
         
        
@@ -220,12 +228,6 @@ public function bindLinkItems(){
    }
 }
 
-function urlString($str) {
-    $first = str_replace( array( 'Î', 'â', 'ă','&','ț' ), array( 'I', 'a,', 'a','','t' ), $str );
-    $first = explode (' ', $first, 2);
-    
-    return $word = strtolower($first[0]);;
-}
 
 
 }
