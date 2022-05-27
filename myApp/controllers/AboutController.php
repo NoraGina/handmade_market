@@ -19,7 +19,7 @@ class AboutController extends AppController
             $category = new CategoriesModel;
             $data['navList'] = $this->bindLinkItems();
             $data['mainContent']=$this->render(APP_PATH.VIEWS.'aboutView.html', $data);
-            echo $this->render(APP_PATH.VIEWS.'publiLlayoutView.html',$data);
+            echo $this->render(APP_PATH.VIEWS.'publiclayoutView.html',$data);
         }
         
     }
