@@ -25,7 +25,7 @@ class LoginController extends AppController
             session_start();
             $_SESSION['user'] = $uName;
             
-            $_SESSION['cart'] =$uName;
+            //$_SESSION['cart'] =$uName;
            
             $myUserId =$authUser['id'];
             
@@ -65,6 +65,7 @@ class LoginController extends AppController
                     $shippingAddress = new ShippingAddressModel;
                     $customerShippingAddress = $shippingAddress->getShippingAddressByUserId($userId);
                     if($customerShippingAddress){
+                        $_SESSION['cart'] = array();
                         header("Location:home");
                     }else{
                         $data['title'] = 'Customer PAGE';

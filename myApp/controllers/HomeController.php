@@ -16,7 +16,7 @@ class HomeController extends AppController
         $newUser = new UsersModel;
         $category = new CategoriesModel;
         $categories = $category->getAllCategories();
-        if(isset($_SESSION['user']) && isset($_SESSION['cart'])){
+        if(isset($_SESSION['user']) ){
            
             $loggedInUser=$_SESSION['user'];
             // var_dump($_SESSION['user']);
@@ -39,23 +39,27 @@ class HomeController extends AppController
                 echo $this->render(APP_PATH.VIEWS.'adminView.html',$data);
             }else{
                 
-                
-                $data['title'] = 'Customer Home PAGE';
-                $data['navList'] = $this->bindLinkItems($categories);
-                
-                 if(!empty($products) ){
-                     $data['cards'] = $this->showProducts($products);
-                     $data['mainContent']="<h2 class='fst-italic text-success text-uppercase'>Hello  $loggedInUser  </h2>";
-                     $data['mainContent'] .= $this->render(APP_PATH.VIEWS.'mainHomeView.html', $data);
-                     echo $this->render(APP_PATH.VIEWS.'customerView.html',$data);
-                     //cart
-
-                    }else{
-                        $data['mainContent']="<h2 class='fst-italic text-success text-uppercase'>Hello  $loggedInUser  </h2>";
-                        $data['mainContent'] .= "<h2 class='fst-italic text-danger '>Nu sunt produse  </h2>";
+                if( isset($_SESSION['cart'])){
+                    $data['title'] = 'Customer Home PAGE';
+                    $data['navList'] = $this->bindLinkItems($categories);
                     
-                        echo $this->render(APP_PATH.VIEWS.'customerView.html',$data);
-                    }
+                     if(!empty($products) ){
+                         $data['cards'] = $this->showProducts($products);
+                         $data['mainContent']="<h2 class='fst-italic text-success text-uppercase'>Hello  $loggedInUser  </h2>";
+                         $data['mainContent'] .= $this->render(APP_PATH.VIEWS.'mainHomeView.html', $data);
+                         echo $this->render(APP_PATH.VIEWS.'customerView.html',$data);
+                         
+    
+                        }else{
+                           
+                            $data['mainContent']="<h2 class='fst-italic text-success text-uppercase'>Hello  $loggedInUser  </h2>";
+                            $data['mainContent'] .= "<h2 class='fst-italic text-danger '>Nu sunt produse  </h2>";
+                        
+                            echo $this->render(APP_PATH.VIEWS.'customerView.html',$data);
+                            $_SESSION['cart']=array();
+                        }
+                }
+               
              
                 
             }
@@ -195,7 +199,7 @@ class HomeController extends AppController
                                 "<input type='hidden' name='storeId' value='".$storeId."'>".
                                 "<input type='hidden' name='name' value='".$product['name']."'>".
                                 "<input type='hidden' name='price' value='".$product['price']."'>".
-                                "<button type='submit' class='btn by-btn'>"."<i class='bi bi-cart-plus-fill'>"."</i>"."Adaugă în coș"."</button>".
+                                "<button type='submit' name='addToCart' class='btn by-btn'>"."<i class='bi bi-cart-plus-fill'>"."</i>"."Adaugă în coș"."</button>".
                             
                             "</form>";
                

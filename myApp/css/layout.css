@@ -276,6 +276,11 @@ main{
     margin: auto;
     width: 60%;
 }
+
+#cartForm{
+    margin: auto;
+    width:70%;
+}
 /*=============================================*/
 /* MEDIA*/
  @media only screen and (min-width: 991px) and (max-width: 1200px){
