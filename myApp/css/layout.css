@@ -134,6 +134,7 @@ main{
 }
  .open-modal{
     background-color: teal;
+    border: none;
     color: #ffffff;
     margin-top: 5px;
     padding: 2px 0;

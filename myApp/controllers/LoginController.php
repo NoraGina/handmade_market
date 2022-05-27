@@ -5,6 +5,8 @@ class LoginController extends AppController
         $this->init();
     }
 
+    
+
     public function init(){
         //POST FORM
         $uName = $_POST['loginUsername'];

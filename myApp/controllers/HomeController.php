@@ -11,28 +11,28 @@ class HomeController extends AppController
         
        
         session_start();
+        $product = new ProductsModel;
+        $products = $product->getAllProducts();
+        $newUser = new UsersModel;
         if(isset($_SESSION['user']) && isset($_SESSION['cart'])){
-            $product = new ProductsModel;
-            $products = $product->getAllProducts();
+           
             $loggedInUser=$_SESSION['user'];
             // var_dump($_SESSION['user']);
             // echo"<br>";
             // echo $loggedInUser['userName'];
             // echo'<br>';
             // var_dump($_SESSION['cart']);
-            $newUser = new UsersModel;
+            
             $user = $newUser->getOne($loggedInUser);
             //$myUser = $loggedInUser['userName'];
             $role =$user['role'];
-            
-               //echo'<pre>';
-               //var_dump($products);
-              // echo'</pre>';
-            
+            $userId = $user['id'];
             if($role=='ADMIN'){
-                
+                $stores = new StoresModel;
+                $store = $stores->getStoreByUserId($userId);
+                $storeName = $store['name'];
                 $data['title'] = 'Admin PAGE';
-                $data['message'] = "<h2 class='fst-italic text-success text-uppercase'>Welcome  $loggedInUser  </h2>";
+                $data['message'] = "<h2 class='fst-italic text-success text-uppercase'>Welcome  $storeName  </h2>";
                 $data['mainContent'] = $this->render(APP_PATH.VIEWS.'mainAdminView.html', $data);
                 echo $this->render(APP_PATH.VIEWS.'adminView.html',$data);
             }else{
@@ -97,12 +97,17 @@ class HomeController extends AppController
 
          //variable for display qunatity as string
          $str ="";
-         //if quantity > 0 will display in stoc
+         if($product['type']=="Pe stoc"){
+            //if quantity > 0 will display in stoc
          if($product['quantity']>0){
-             $str="Produse pe stoc:  ".$product['quantity'];
+            $str="Produse pe stoc:  ".$product['quantity'];
+        }else{
+            $str="Produs indisponibil";
+        }
          }else{
-             $str="Produs la comandă";
+            $str="Produs la comandă";
          }
+         
        
        if(is_array($storeProduct)){
              //variable for delivery tax
@@ -134,24 +139,26 @@ class HomeController extends AppController
          $output .=" <p class='text-start  fs-6'>"."Preț "."<span>".$product['price']."</span>"." Lei "."</p>";
         // $output .=" <div class='row '>";
        
-         $output .="<div class='row'>".
-                    "<form action='addToCart' method='POST'>".
-                    "<input type='hidden' name='itemQuantity' value='1' min='1' max='".$productQuantity."' >".
+         $output .="<div class='row'>";
+         $output .=" <div class='col align-self-end'>";
+         $output.=  "<form action='addToCart' method='POST'>".
+                    "<input type='number' name='itemQuantity' style='width:100%' value='".$productQuantity."' min='1' max='".$productQuantity."' >".
                     "<input type='hidden' name='productId' value='".$id."'>".
                     "<input type='hidden' name='storeId' value='".$storeId."'>".
                     "<input type='hidden' name='name' value='".$product['name']."'>".
                     "<input type='hidden' name='price' value='".$product['price']."'>".
                    "<input type='submit' name='addToCart' class='btn order-btn' value='Comandă'>".
                   
-                  "</form>".
-                  $output.="</div>";
-        $output .="<div class='row'>".
-                  "<button type='button' name='$id' data-target='myModal$id' class=' open-modal' onclick='openProductModal()'>".
-                  "Detalii"."</button>".
-                 "</div>";
-                //  "</div>";
+                  "</form>";
+        $output .="</div>";
+        $output .="</div>";
+        $output .="<div class='row'>";
+        $output .=" <div class='col align-self-end'>";
+        $output.=  "<button type='button' name='$id' data-target='myModal$id' class='btn open-modal ' onclick='openProductModal()'>".
+                  "Detalii"."</button>";
+        $output .="</div>";//end row
+        $output .="</div>";//end col
 
-         //$output .="</div>";//end row
          $output .="</div>";//end card body
          $output .="</div>";//end card
          $output .="</div>";//end col
