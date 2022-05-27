@@ -19,7 +19,7 @@ class AboutController extends AppController
             $category = new CategoriesModel;
             $data['navList'] = $this->bindLinkItems();
             $data['mainContent']=$this->render(APP_PATH.VIEWS.'aboutView.html', $data);
-            echo $this->render(APP_PATH.VIEWS.'layout.html',$data);
+            echo $this->render(APP_PATH.VIEWS.'publiLlayoutView.html',$data);
         }
         
     }
@@ -34,7 +34,7 @@ class AboutController extends AppController
             $name = $category['name'];
         
                 $output .="<li class='nav-item'>".
-         "<a class='nav-link active' aria-current='page' href='/TestHandMade/filteredProducts/".$id."'>".$name."</a>".
+         "<a class='nav-link active' aria-current='page' href='/HandMadeMarket/filteredProducts/".$id."'>".$name."</a>".
           " </li>";
             
            
