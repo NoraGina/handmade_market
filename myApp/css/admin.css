@@ -1,0 +1,67 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+.logo-img{
+    width:70px;
+}
+
+#primaryNavBar{
+    background-color: #292b39;
+    
+    
+}
+#primaryNavBar a{
+    color: white;
+   font-size: 1em;
+}
+
+
+
+#logoutBtn{
+    border: ridge red 2px;
+    color: white;
+}
+
+
+#primaryNavBar a:hover, #primaryNavBar #loginBtn:hover, #primaryNavBar #logoutBtn:hover{
+    color: aqua;
+    
+}
+#addProductForm{
+    margin: auto;
+    width:60%;
+}
+
+#addStoreForm{
+    margin: auto;
+    width: 60%;
+}
+
+.main-box{
+    background-size: cover;
+    margin: auto;
+    height: 560px;
+    width: 100%;
+}
+
+.main-img{
+    
+    cursor: pointer;
+    height: 560px;
+    object-fit: cover;
+    object-position: center;
+    margin: auto;
+    width: 100%;
+}
+
+.updateProductForm{
+    margin: auto;
+    width:50%;
+}

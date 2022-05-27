@@ -1,0 +1,327 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+/*============== NAVBAR ============== */
+/* ********** PRIMARY NAVBAR ***************** */
+.logo-img{
+    width:70px;
+}
+
+#primaryNavBar{
+    
+    background-image: linear-gradient(rgb(30, 0, 255), rgb(40, 25, 150));
+    font-family: 'Montserrat', 'sans-serif';
+}
+#primaryNavBar a{
+    color: white;
+   
+}
+#primaryNavBar #logoId {
+    font: italic 1.5rem 'Montserrat' ;
+}
+#primaryNavBar a:hover, #primaryNavBar #loginBtn:hover, #primaryNavBar #logoutBtn:hover{
+    color: aqua;
+    
+}
+
+/* ********** FITER NAVBAR ***************** */
+#filterNavBar{
+    background-image: linear-gradient(rgb(35, 14, 158),rgb(11, 4, 161) );
+    font-family: "Montserrat";
+    width: 100%;
+}
+#filterNavBar a{
+    color: white;
+    
+}
+
+
+#filterNavBar a:hover{
+    color: fuchsia;
+    
+}
+
+/* =========== TITLE ================= */
+#siteTitle{
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    text-align: center;
+}
+
+/*=================== MAIN CONTENT ==============  */
+main{
+    font-family: 'Lato', 'sans-serif';
+}
+.galery-box{
+    background-size: cover;
+    margin: auto;
+    height: 280px;
+    width: 100%;
+}
+
+.galery-img{
+    
+    cursor: pointer;
+    height: 280px;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.8; 
+    margin: auto;
+    width: 100%;
+}
+.galery-img:hover{
+    opacity: 1;
+}
+
+  
+
+  /*LOGIN SIGNUP*/
+  #forgotLoginId, #forgotSignupId{
+    color: red;
+}
+
+#loginPassword{
+    position: relative;
+}
+
+.login-viewer {
+	z-index: 9999;
+	position: absolute;
+	top: 58%;
+	right: 40px;
+    cursor: pointer;
+}
+.showpwd{
+    font-size: 2rem;
+}
+#signUpPass1{
+    position: relative;
+}
+.signup-viewer {
+	z-index: 9999;
+	position: absolute;
+	top: 55%;
+	right: 40px;
+    cursor: pointer;
+}
+/*==============================================*/
+/* ************** CARDS ************************ */
+.box-img{
+    background-size: cover;
+    margin: auto;
+    height: 280px;
+    width: 100%;
+}
+
+.product-img{
+    border-radius: 1em 1em 0 0;
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+    height: 280px;
+    object-fit: cover;
+    object-position: center;
+    margin: auto;
+    width: 100%;
+}
+
+.card{
+    border-radius: 1em 1em 0 0;
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    text-align: center;  
+}
+ .open-modal{
+    background-color: teal;
+    color: #ffffff;
+    margin-top: 5px;
+    padding: 2px 0;
+    opacity: 0.7;
+    font-size: 1.13rem;
+    width: 100%;
+}
+ .open-modal:hover{
+   opacity: 1;
+  
+}
+
+.order-btn{
+    background-color: rgb(99, 116, 161);
+    color: #ffffff;
+    margin-top: 5px;
+    padding: 2px 0;
+    opacity: 0.7;
+    font-size: 1.13rem;
+    width: 100%;
+}
+.order-btn:hover{
+    color: #ffffff;
+   opacity: 1;
+  
+}
+.read-more-btn{
+    color: #888;
+}
+.read-less-btn{
+    color: #888;
+    display: none;
+}
+.read-more-text{
+    display: none;
+}
+
+.read-more-btn:hover{
+    color:black;
+    cursor: pointer;
+}
+.show-text{
+    display: block;
+}
+.remove-text{
+    display: none;
+}
+
+/* ***********PRODUCTS MODAL ********************* */
+.products-modal  {
+    display: none;
+    position: fixed;
+    z-index: 999; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+  }
+  
+
+   .show{
+     display: block;
+    }
+
+  .modal-title{
+      text-align: center;
+  }
+
+  .modal-description{
+      text-align: justify;
+  }
+  
+
+  /* Modal Content/Box */
+  .my-container {
+    background-color:aliceblue;
+    font-family: "Lato";
+    margin: 12% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%; /* Could be more or less, depending on screen size */
+  }
+  .content{
+      display: flex;
+      flex-direction: column;
+  }
+
+
+  .requirements-area{
+      margin-top: 5px;
+  }
+
+  .button-box{
+      margin-top: 5px;
+  }
+
+  .by-btn{
+     background-color: #3c5c76;
+     color: #ffffff;
+     font-size: 1.08rem;
+      padding: 3px;
+      opacity: 0.6;
+      width: 100%;
+  }
+
+  .by-btn:hover{
+      color: aqua;
+      opacity: 0.9;
+  }
+
+  /* The Close Button */
+  .close-modal {
+    color: #aaa;
+    float: right;
+   
+    font-weight: bold;
+  }
+
+  .close-modal:hover,
+  .close-modal:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .modal-img{
+    width: 100%;
+}
+
+.modal-img:hover{
+  transform: scale(1.05); 
+
+}
+
+#addAddressForm{
+    margin: auto;
+    width: 60%;
+}
+/*=============================================*/
+/* MEDIA*/
+ @media only screen and (min-width: 991px) and (max-width: 1200px){
+    .my-container{
+        margin: 9% auto auto auto;
+        width: 60%;
+    }
+  }
+  @media only screen and (min-width: 769px) and (max-width: 990px){
+    .my-container{
+        margin: 12% auto auto auto;
+        width: 70%;
+    }
+  }
+  @media only screen and (min-width: 481px) and (max-width: 768px){
+    .content {
+        flex-direction: row;
+      }
+    .my-container{
+        margin: 18% auto auto auto;  
+        width: 80%;
+    }
+    
+  }
+
+  @media only screen  and (max-width: 480px) {
+    .content {
+      flex-direction: row;
+    }
+    .my-container{
+        margin: 25% auto auto auto;  
+        width: 80%;
+    }
+    .box-img{
+        background-size: cover;
+        margin: auto;
+        height: 280px;
+        width: 100%;
+    }
+    
+    .product-img{
+        border-radius: 1em 1em 0 0;;
+        box-shadow: 0 0 10px rgba(0,0,0,.2);
+        height: 280px;
+        object-fit: cover;
+        object-position: top;
+        margin: auto;
+        width: 100%;
+    }
+  }

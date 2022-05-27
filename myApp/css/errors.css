@@ -1,0 +1,21 @@
+.logo-img{
+    width:70px;
+}
+
+#primaryNavBar{
+    background-color: #ccccff;
+    
+    
+}
+#primaryNavBar a{
+    color: #000066;
+   font-size: 1em;
+}
+#primaryNavBar #logoId {
+    font: italic 1rem Poppins ;
+}
+
+#primaryNavBar a:hover{
+    color: aqua;
+    
+}

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>>Resource NOT found</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <base href="/HandMadeMarket/">
+        <link rel="stylesheet" href="myApp/css/errors.css">
+</head>
+
+<body>
+    <nav class="navbar container-fluid navbar-expand-lg  navbar-dark sticky-top" id="primaryNavBar">
+
+        <div class="container-fluid ">
+            <!--LOGO-->
+            <a class="navbar-brand" href="#" id="logoId">Hand made market
+                <img src="myApp/img/logo_transparent1-min.png" alt="missing logo..." class="logo-img">
+            </a>
+            <!--HAMBURGER-->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
+                id="primaryNavBarToggleBtn">
+                <span class="navbar-toggler-icon" id="primaryNavToggle"></span>
+            </button>
+
+            <!--COLAPSE NAVBAR-->
+            <div class="collapse navbar-collapse " id="navbarNav">
+                <!--LIST OF ITEM-->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item ">
+                        <a class="nav-link active ps-3" aria-current="page" href="#">
+                            <i class="bi bi-house-fill"></i>Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link ps-3" href="#">
+                            <i class="bi bi-envelope-fill"></i>Contact me</a>
+                    </li>
+                </ul>
+                <!--LOGIN SIGNUP-->
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <!-- Button trigger modal LOGIN -->
+                    <button type="button" class="btn btn-primary ms-auto rounded-pill" data-bs-toggle="modal"
+                        data-bs-target="#exampleModalToggle"><i class="bi bi-box-arrow-in-left"></i>
+                        Login
+                    </button>
+                    <!-- Button trigger modal SIGN UP -->
+                    <button type="button" class="btn btn-primary ms-2 rounded-pill" data-bs-toggle="modal"
+                        data-bs-target="#signupModal"><i class="bi bi-person-plus-fill"></i>
+                        Sign up
+                    </button>
+
+                </div>
+                <!--END LOGIN SIGNUP-->
+            </div>
+            <!--END COLAPSE NAVBAR-->
+        </div>
+        <!--END CONTAINER-->
+
+    </nav>
+    <!--END  NAVBAR-->
+    
+    <!--MODAL-->
+    
+    <!-- Login Modal -->
+    <div class="modal fade" id="exampleModalToggle" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!--END MODAL HEADER-->
+                <!--LOGIN MODAL BODY-->
+                <div class="modal-body">
+                    <form method="POST" action="login">
+                        <fieldset class="form-group border border-2 border-success rounded-2  p-3">
+                            <legend>LOGIN FORM</legend>
+                            <div class="mb-2">
+                                <label for="loginUsername">Username<span class="text-danger">*</span></label>
+                                <input type="text" name="loginUsername" class="form-control" id="loginUsername"
+                                    placeholder="Enter your Username">
+                            </div>
+
+                            <div class="mb-2">
+                                <label for="loginPassword">Password<span class="text-danger">*</span></label>
+                                <input type="password" name="loginPassword" class="form-control" id="loginPassword"
+                                    placeholder="Enter Password">
+                                <span class="login-viewer">
+                                    <i class="bi bi-eye-fill text-success showpwd" id="toggleLoginPassword"
+                                        onclick="showHidePassLogin()"></i>
+                                </span>
+                            </div>
+
+                            <div class="mb-2">
+                                <button type="submit" class="btn btn-success mx-auto w-100">Login</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                    <!--END LOGIN FORM-->
+                </div>
+                <!--END LOGIN MODAL BODY-->
+                <!--LOGIN FOOTER-->
+                <div class="modal-footer pt-4">
+
+                    <div class="mb-3">
+                        <span class="text-center" id="forgotLoginId">Ai uitat parola</span>
+                        <button class="btn btn-danger" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal"
+                            data-bs-dismiss="modal">Recupereaza parola</button>
+                    </div>
+                </div>
+                <!--END LOGIN FOOTER-->
+            </div>
+            <!--END MODAL CONTENT-->
+        </div>
+        <!--END MODAL DIALOG-->
+    </div>
+    <!--END LOGIN MODAL-->
+
+    <!-- Signup Modal -->
+    <div class="modal fade" id="signupModal" aria-hidden="true" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!--END SIGNUP HEADER-->
+                <div class="modal-body">
+                    <!--SIGNUP FORM-->
+                    <form id="signUpForm" method="POST" action="signup">
+                        <fieldset class="form-group border border-2 border-primary rounded-2  p-3">
+                            <legend>SIGNUP FORM</legend>
+                            <div class="mb-2 ml-5">
+                                <label for="signupFullname">Name and surname<span class="text-danger">*</span></label>
+                                <input type="text" name="signupfullName" class="form-control ml-5" id="signupFullName"
+                                    placeholder="Enter your full name" required>
+                            </div>
+
+                            <div class="mb-2">
+                                <label for="signupUsername">Username<span class="text-danger">*</span></label>
+                                <input type="text" name="signupUsername" class="form-control" id="signupUsername"
+                                    placeholder="username" required>
+                            </div>
+                            <div class="mb-2">
+                                <label for="signupEmail">Email<span class="text-danger">*</span></label>
+                                <input type="email" name="signupEmail" class="form-control" id="signupEmail"
+                                    placeholder="username @" required>
+
+                            </div>
+
+                            <div class="mb-2">
+                                <label for="signupPassword">Password<span class="text-danger">*</span></label>
+                                <input type="password" name="signupPassword1" class="form-control" id="signupPassword1"
+                                    placeholder="Introdu parola" required>
+                                <span class="signup-viewer">
+                                    <i class="bi bi-eye-fill  text-primary showpwd" id="toggleSignupPassword"
+                                        onclick="showHidePassSignup()"></i>
+                                </span>
+                            </div>
+                            <div class="mb-2">
+                                <label for="signupPassword2">Re-type password<span class="text-danger">*</span></label>
+                                <input type="password" name="signupPassword2" class="form-control" id="signupPassword2"
+                                    placeholder="Enter Password" required>
+                            </div>
+
+                            <div class="mb-1">
+                                <input class="form-check-input" type="checkbox" name="role" id="flexCheckChecked"
+                                    value="CUSTOMER">
+                                <label class="form-check-label" for="flexCheckChecked">
+                                    Cumperi?
+                                </label>
+                            </div>
+
+                            <div class="mb-3">
+                                <input class="form-check-input" type="checkbox" name="role" id="flexCheckDefault"
+                                    value="ADMIN">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Vinzi?
+                                </label>
+                            </div>
+
+
+
+                            <div class="mb-2">
+                                <button type="submit" class="btn btn-primary mx-auto w-100">Înregistrare</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <!--END MODAL BODY-->
+
+
+            </div>
+            <!--END MODAL CONTENT-->
+        </div>
+        <!--END MODAL DIALOG-->
+    </div>
+    <!--END SIGNUP MODAL-->
+    <!-- Forgot Update Modal -->
+    <div class="modal fade" id="exampleModalToggle3" aria-hidden="true" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!--End FORGOT MODAL HEADER-->
+
+                <div class="modal-body">
+                    <!--SEARCH FORM-->
+                    <form>
+                        <fieldset class="form-group border border-2 border-info p-3">
+                            <legend>Search user</legend>
+                            <div class="row mb-2">
+                                <label class="col-sm-3 col-form-label" for="forgotUsername">Email<span
+                                        class="text-danger">*</span></label>
+                                <div class="col-sm-9">
+                                    <input type="email" name="updateEmail" class="form-control" id="forgotUsername"
+                                        placeholder="Enter@username">
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <button type="button" class="btn btn-info mx-auto w-100">Cauta</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                    <!--END SEARCH FORM-->
+
+                    <!--UPDATE FORM-->
+                    <form>
+                        <fieldset class="form-group border border-2 border-secondary rounded-2 p-2 mt-2">
+                            <legend class="w-auto px-2">UPDATE FORM</legend>
+                            <div class="row mb-2">
+                                <label class="col-sm-3 col-form-label" for="updateFullname">Full name <span
+                                        class="text-danger">*</span></label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="updateFullname" class="form-control" id="updateFullname">
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+                                <label class="col-sm-3 col-form-label" for="updateUsername">Username</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="updateUsername" class="form-control" id="updateUsername">
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <label class="col-sm-3 col-form-label" for="updateEmail">Email</label>
+                                <div class="col-sm-9">
+                                    <input type="email" name="updateEmail" class="form-control" id="updateEmail">
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+                                <label class="col-sm-3 col-form-label" for="updatePassword1">Password</label>
+                                <div class="col-sm-9">
+                                    <input type="password" name="updatePassword1" class="form-control"
+                                        id="updatePassword1">
+                                    <span class="update-viewer">
+                                        <i class="bi bi-eye-fill text-secondary showpwd" id="togglePassword"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mb-2 d-none">
+                                <label class="col-sm-3 col-form-label" for="updatePassword2">Re-type:</label>
+                                <input type="password" class="form-control" id="updatePassword2" value="" required>
+
+                            </div>
+
+
+                            <div class="mb-2">
+                                <button type="button" class="btn btn-secondary mx-auto w-100">Update</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                    <!--END UPDATE FORM-->
+                </div>
+                <!--END MODAL BODY-->
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"
+                        data-bs-dismiss="modal">Inapoi login</button>
+                </div>
+            </div>
+            <!--END FORGOT MODAL CONTENT-->
+        </div>
+        <!--END FORGOT MODAL DIALOG-->
+    </div>
+    <!--END FORGOT/UPDATE MODAL-->
+    <!--END FORGOT/UPDATE MODAL-->
+    <main>
+        <h1 class="container">Nu ai acces!</h1>
+    </main>
+
+     <!-- JavaScript Bundle with Popper -->
+     <script
+     src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+     crossorigin="anonymous"
+   ></script>
+
+</body>
+
+</html>

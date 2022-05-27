@@ -1,0 +1,14 @@
+# the next line prevents access to the folder structure
+Options -Indexes
+
+IndexIgnore controllers models views
+
+# wild chars: * (how many characters)? (ONE character)
+# IndexIgnore po*.jpg
+
+RewriteEngine On
+RewriteRule ^([\w]+)$ ?page=$1 [L]
+RewriteRule ^([\w]+)/([\w]+)$ ?page=$1&id=$2 [L]
+
+ErrorDocument 404 /TestHandMade/errors/error404.html
+ErrorDocument 403 /TestHandMade/errors/error403.html

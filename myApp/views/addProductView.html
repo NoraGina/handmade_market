@@ -1,0 +1,66 @@
+<div class="container">
+    <form action="addProduct" method="POST" enctype="multipart/form-data" id="addProductForm">
+        <fieldset class="form-group border border-2 border-primary rounded-2  p-3">
+            <legend>Adaugă produs nou</legend>
+            
+            <div class="mb-3 row">
+                <label for="exampleFormControlInput2" class="col-sm-3 col-form-label">Nume produs<span class="text-danger">*</span></label>
+                <div class="col-sm-9">
+                    <input type="text" name="name" class="form-control" id="exampleFormControlInput2"
+                        placeholder="nume produs" required>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="exampleFormControlTextarea1" class="col-sm-3 col-form-label">Descriere produs<span class="text-danger">*</span></label>
+                <div class="col-sm-9">
+                    <textarea class="form-control" name="description" id="exampleFormControlTextarea1"
+                        rows="3" required></textarea>
+                </div>
+
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label" for="form6Example6">Adaugă imagine<span class="text-danger">*</span></label>
+                <div class="col-sm-9">
+                    <input type="file" name="myImage" class="form-control" id="form6Example6" required>
+                </div>
+
+            </div>
+            <div class="mb-3 row">
+                <label for="exampleFormControlInput3" class="col-sm-3 col-form-label">Preț<span class="text-danger">*</span></label>
+                <div class="col-sm-9">
+                    <input type="text" name="price" class="form-control" id="exampleFormControlInput3"
+                        placeholder="34.50" required>
+                </div>
+
+            </div>
+            <div class=" mb-3 row">
+                <label for="exampleFormControlInput4" class="col-sm-3 col-form-label">Categorii<span class="text-danger">*</span></label>
+                <div class="col-sm-9">
+                    
+                    {{select}}
+                </div>  
+            </div>
+            <div class=" mb-3 row">
+                <label for="exampleFormControlInput5" class="col-sm-3 col-form-label">Tip<span class="text-danger">*</span></label>
+                <div class="col-sm-9">
+                    <select class="form-select" aria-label="Default select example" name="type" required>
+                        <option selected>Alege un tip</option>
+                        <option value="La comandă">La comandă</option>
+                        <option value="Pe stoc">Pe stoc</option>
+                        
+                    </select>   
+                </div>  
+            </div>
+            <div class="mb-3 row">
+                <label for="exampleFormControlInput1" class="col-sm-3 col-form-label">Cantitate</label>
+                <div class="col-sm-9">
+                    <input type="text" name="quantity" class="form-control" value="1" id="exampleFormControlInput1"
+                        placeholder="cantitate 2" required>
+                </div>
+            </div>
+           
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block mb-2 col-12" id="addProductBtn">Adaugă produs</button>
+        </fieldset>
+    </form>
+</div>
