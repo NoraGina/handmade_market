@@ -1,82 +1,56 @@
 <?php
-
-class HomeController extends AppController
+class FilteredProductsController extends AppController
 {
     public function __construct(){
-        $this->init();
+        $this ->init();
     }
 
     public function init(){
-        echo __FILE__;
         
-       
         session_start();
+        $id = $_GET['id'];
         $product = new ProductsModel;
-        $products = $product->getAllProducts();
-        $newUser = new UsersModel;
+        $products = $product->filterProductsByCategoryId($id);
         $category = new CategoriesModel;
         $categories = $category->getAllCategories();
         if(isset($_SESSION['user']) && isset($_SESSION['cart'])){
-           
             $loggedInUser=$_SESSION['user'];
-            // var_dump($_SESSION['user']);
-            // echo"<br>";
-            // echo $loggedInUser['userName'];
-            // echo'<br>';
-            // var_dump($_SESSION['cart']);
-            
-            $user = $newUser->getOne($loggedInUser);
-            //$myUser = $loggedInUser['userName'];
-            $role =$user['role'];
-            $userId = $user['id'];
-            if($role=='ADMIN'){
-                $stores = new StoresModel;
-                $store = $stores->getStoreByUserId($userId);
-                $storeName = $store['name'];
-                $data['title'] = 'Admin PAGE';
-                $data['message'] = "<h2 class='fst-italic text-success text-uppercase'>Welcome  $storeName  </h2>";
-                $data['mainContent'] = $this->render(APP_PATH.VIEWS.'mainAdminView.html', $data);
-                echo $this->render(APP_PATH.VIEWS.'adminView.html',$data);
+            // echo $_GET['id']
+            if(!empty($products) ){
+                $data['title'] = 'Filtered Products PAGE';
+                 $data['navList'] = $this->bindLinkItems($categories);
+                $data['cards'] = $this->showProducts($products);
+                 $data['mainContent']="<h2 class='fst-italic text-success text-uppercase'>Hello  $loggedInUser  </h2>";
+                 $data['mainContent'] .= $this->render(APP_PATH.VIEWS.'mainHomeView.html', $data);
+                echo $this->render(APP_PATH.VIEWS.'customerView.html',$data);
+                
             }else{
-                
-                
                 $data['title'] = 'Customer Home PAGE';
                 $data['navList'] = $this->bindLinkItems($categories);
+                $data['mainContent']="<h2 class='fst-italic text-success text-uppercase'>Hello  $loggedInUser  </h2>";
+                $data['mainContent'] .= "<h2 class='fst-italic text-danger '>Nu sunt produse în această categorie </h2>";
                 
-                 if(!empty($products) ){
-                     $data['cards'] = $this->showProducts($products);
-                     $data['mainContent']="<h2 class='fst-italic text-success text-uppercase'>Hello  $loggedInUser  </h2>";
-                     $data['mainContent'] .= $this->render(APP_PATH.VIEWS.'mainHomeView.html', $data);
-                     echo $this->render(APP_PATH.VIEWS.'customerView.html',$data);
-                     //cart
+                echo $this->render(APP_PATH.VIEWS.'customerView.html',$data);
+            }
 
-                    }else{
-                        $data['mainContent']="<h2 class='fst-italic text-success text-uppercase'>Hello  $loggedInUser  </h2>";
-                        $data['mainContent'] .= "<h2 class='fst-italic text-danger '>Nu sunt produse  </h2>";
-                    
-                        echo $this->render(APP_PATH.VIEWS.'customerView.html',$data);
-                    }
-             
-                
-            }
         }else{
-            if(!empty($products)){
-                $data['title'] = 'Home PAGE';
-                $data['navList'] = $this->bindLinkItems($categories);
-                $data['cards'] = $this->showProducts($products);
-                $data['mainContent'] = $this->render(APP_PATH.VIEWS.'mainHomeView.html', $data);
-        
-                echo $this->render(APP_PATH.VIEWS.'publicLayoutView.html',$data);
+            if(!empty($products) ){
+                $data['title'] = 'Filtred Products PAGE';
+                 $data['navList'] = $this->bindLinkItems($categories);
+                 $data['cards'] = $this->showProducts($products);
+                 $data['mainContent'] = $this->render(APP_PATH.VIEWS.'mainHomeView.html', $data);
+                 echo $this->render(APP_PATH.VIEWS.'publicLayoutView.html',$data);
+               
             }else{
-                $data['title'] = 'Home PAGE';
+                $data['title'] = 'Customer Home PAGE';
                 $data['navList'] = $this->bindLinkItems($categories);
-                $data['mainContent'] = "<h2 class='fst-italic text-danger '>Nu sunt produse  </h2>";
+                $data['mainContent'] = "<h2 class='fst-italic text-danger '>Nu sunt produse în această categorie </h2>";
+                
                 echo $this->render(APP_PATH.VIEWS.'publicLayoutView.html',$data);
             }
-            
-            
+
+
         }
-        
     }
 
     //function to show products
@@ -207,17 +181,12 @@ class HomeController extends AppController
                 $output .="</div>";//end my-container
                 $output .="</div>";//end products-modal";
      }//foreach
-       }
-         
-         
-
-        
-     
+       }        
     }//if products array
     return $output;
    }
 
-public function bindLinkItems($categories){
+   public function bindLinkItems($categories){
     
     $output = "";
    if(is_array($categories)){
@@ -235,7 +204,5 @@ public function bindLinkItems($categories){
     return $output;
    }
 }
-
-
 
 }
