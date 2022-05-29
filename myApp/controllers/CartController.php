@@ -6,49 +6,35 @@ class CartController extends AppController{
     }
 
     public function init(){
-        echo __FILE__;
         session_start();
-        if( isset($_SESSION['user']) && isset($_SESSION['cart'])){
-        
-            $items = $_SESSION['cart'];
+        if( isset($_SESSION['user']) && isset($_SESSION['cart']) && !empty($_SESSION['cart'])){
+          $category = new CategoriesModel;
+          $items = $_SESSION['cart'];
             
-           $loggedInUser = $_SESSION['user'];
-            $user = new UsersModel;
-            $customer = $user->getOne($loggedInUser);
-            $userId = $customer['id'];
-            // echo'<br>';
-            // echo "User Id";
-            // echo $userId;
+            $loggedInUser = $_SESSION['user'];
+             $user = new UsersModel;
+             $customer = $user->getOne($loggedInUser);
+             $userId = $customer['id'];
              $address = new ShippingAddressModel;
              $addressCart = $address->getShippingAddressByUserId($userId);
-            // echo'<pre>';
-            // echo "Items";
-            // echo"<br>";
-            echo "Items";
-             echo'<pre>';
-             var_dump($items);
-             echo'</pre>';
-            
-              $firstRow = $items[0];
-              $firstKey = $firstRow['id'];
-              $storeCart =$firstRow['storeId'];
-              echo"Store";
-              echo"<br>";
-              echo $storeCart;
-            //  echo"First key";
-            //  echo $firstKey;
-            //  echo'<br>';
-             $productStore = new ProductsModel;
-             $storeCart = $productStore->findProductById($firstKey);
           
-            
-             $data['title']="Cart Page";
-             $category = new CategoriesModel;
-             $data['navList'] = $this->bindLinkItems();
-             $data['inputs'] = $this->outputCart( $customer, $addressCart,$storeCart );
-             $data['table']=$this->table($items);
-             $data['mainContent'] = $this->render(APP_PATH.VIEWS.'cartView.html', $data);
-             echo $this->render(APP_PATH.VIEWS.'customerView.html',$data);
+               $firstRow = $items[0];
+               $firstKey = $firstRow['id'];
+               $storeCart =$firstRow['storeId'];
+              
+              
+              $data['title']="Cart Page";
+              
+              $data['navList'] = $this->bindLinkItems();
+              $data['inputs'] = $this->outputCart( $customer, $addressCart );
+              $data['table']=$this->table($items);
+              $data['mainContent'] = $this->render(APP_PATH.VIEWS.'cartView.html', $data);
+              echo $this->render(APP_PATH.VIEWS.'customerView.html',$data);
+          
+           
+        }else{
+          echo "<h2 class='fst-italic text-success text-uppercase'> Nu ai produse în coș </h2>";
+          header("Refresh:2; url=home");
         }
     }
 
@@ -72,9 +58,9 @@ class CartController extends AppController{
        }
     }
 
-    public function outputCart( $user, $address, $store){
+    public function outputCart( $user, $address){
         $output ="";
-        if(is_array($user) && is_array($address)  && is_array($store)){
+        if(is_array($user) && is_array($address) ){
 
            
             $output .="<div class='input-group mb-1'>
@@ -97,7 +83,7 @@ class CartController extends AppController{
             </div>";
             $output .="<div class='input-group'>
             <span class='input-group-text'>Alte specificații</span>
-            <textarea class='form-control' aria-label='Alte specificații'></textarea>
+            <textarea class='form-control' name='suggestions' aria-label='Alte specificații'></textarea>
           </div>";
             
 
@@ -143,6 +129,7 @@ class CartController extends AppController{
                        
              $output .="</table>";
              $output .="<h4 class='ms-auto'>"."Total ".$total."</h4>";
+             $output .="<input type='submit' class='btn btn-secondary' value='Salvează comanda'></input>";
              return $output;
                         
                 }

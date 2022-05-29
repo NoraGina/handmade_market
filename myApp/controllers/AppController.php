@@ -20,7 +20,8 @@ class AppController
                             'addShippingAddress' =>'AddShippingAddressController',
                             'filteredProducts' =>'FilteredProductsController',
                             'addToCart' =>'AddToCartController',
-                            'cart' =>'CartController'
+                            'cart' =>'CartController',
+                            'addOrder'=>'AddOrderController'
                         ];
 
     public function __construct(){

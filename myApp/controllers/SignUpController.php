@@ -24,41 +24,36 @@ class SignUpController extends AppController
         if($user->addUser($uFullname, $uUsername, $uEmail,$uPass, $hash, $uRole)){
             //IF THE USER HAS BEEN REGISTERED START SESSION
             session_start();
-            $_SESSION['user']=$uRole;
-            $role=$_SESSION['user'];
-           
-            //IF USER ROLE == ADMIN REDIRECT TO ADMIN DASHBOARD
-            if($role == 'ADMIN'){
-                $_SESSION['user'] = $uUsername;
-                $loggedInUserAdmin = $_SESSION['user'];
-                $data['title'] = 'Admin PAGE';
-                $data['message'] = "<h2 class='fst-italic text-success text-uppercase'>Welcome  $loggedInUserAdmin  </h2>";
-                $data['mainContent'] = $this->render(APP_PATH.VIEWS.'addStoreView.html', $data);
-                echo $this->render(APP_PATH.VIEWS.'adminView.html',$data);
-            }else{
-                //IF USER ROLE== CUSTOMER REDIRECT TO
-                $_SESSION['cart'] = $uUsername;
-                $_SESSION['user'] = $uUsername;
-                $loggedInUser = $_SESSION['user'];
-                
-                $data['title'] = ' Customer Home PAGE';
+            
+            $_SESSION['user']= $uUsername;
+            $loggedInUser = $_SESSION['user'];
+         
+             //IF USER ROLE == ADMIN REDIRECT TO ADMIN DASHBOARD
+             if($uRole == 'ADMIN'){
+                 //$_SESSION['user'] = $uUsername;
+                 $data['title'] = 'Admin PAGE';
+                 $data['message'] = "<h2 class='fst-italic text-success text-uppercase'>Welcome  $loggedInUser </h2>";
+                 $data['mainContent'] = $this->render(APP_PATH.VIEWS.'addStoreView.html', $data);
+                 echo $this->render(APP_PATH.VIEWS.'adminView.html',$data);
+             }else{
+                 //IF USER ROLE== CUSTOMER REDIRECT TO
+                 $data['title'] = ' Customer Home PAGE';
+                 $data['navList'] = $this->bindLinkItems($categories);
+                 $data['cards'] = $this->showProducts($products);
                
-                $data['navList'] = $this->bindLinkItems($categories);
-                $data['cards'] = $this->showProducts($products);
-               
-                $data['mainContent'] = "<h2 class='fst-italic text-success text-uppercase'>Welcome   $loggedInUser  </h2>";
-                $data['mainContent'].= $this->render(APP_PATH.VIEWS.'addShippingAddressView.html', $data);
-                echo $this->render(APP_PATH.VIEWS.'customerView.html',$data);
-            }
+                 $data['mainContent'] = "<h2 class='fst-italic text-success text-uppercase'>Welcome   $loggedInUser  </h2>";
+                 $data['mainContent'].= $this->render(APP_PATH.VIEWS.'addShippingAddressView.html', $data);
+                 echo $this->render(APP_PATH.VIEWS.'customerView.html',$data);
+             }
         }else{
-            //ELSE REDIRECT TO HOME PAGE
-            $data['title'] = 'Home PAGE';
-            $data['cards'] = $this->showProducts($products);
-            $data['navList'] = $this->bindLinkItems($categories);
-            $data['mainContent'] ="<h2 class='fst-italic text-danger'>Username already associated with another account. Please try with diffrent username.' </h2>";
-            $data['mainContent'].= $this->render(APP_PATH.VIEWS.'mainHomeView.html', $data);
-            echo $this->render(APP_PATH.VIEWS.'publicLayoutView.html', $data);
-        }
+             //ELSE REDIRECT TO HOME PAGE
+             $data['title'] = 'Home PAGE';
+             $data['cards'] = $this->showProducts($products);
+             $data['navList'] = $this->bindLinkItems($categories);
+             $data['mainContent'] ="<h2 class='fst-italic text-danger'>Username already associated with another account. Please try with diffrent username.' </h2>";
+             $data['mainContent'].= $this->render(APP_PATH.VIEWS.'mainHomeView.html', $data);
+             echo $this->render(APP_PATH.VIEWS.'publicLayoutView.html', $data);
+         }
 
 
     }

@@ -15,6 +15,7 @@ class AddShippingAddressController extends AppController
             $logUser=$user->getOne($loggedInUser);
             //I take the user id 
             $userId=$logUser['id'];
+            $userName = $logUser['userName'];
             //FORM DATA
             $sCounty = $_POST['county'];
             $sCity = $_POST['city'];
@@ -29,15 +30,18 @@ class AddShippingAddressController extends AppController
             $products = $product->getAllProducts();
             //if everything went well
             if($shippingAddress->addShippingAddress( $sUserId,$sCounty, $sCity, $sAddress, $sZipCode, $sPhone )){
-                $data['title'] = 'Customer Home PAGE';
+                $_SESSION['cart']=array();
+                $_SESSION['user']= $userName;
+                header("Location:home");
+                // $data['title'] = 'Customer Home PAGE';
                
-                $data['cards'] =$this->showProducts($products);
-                $data['navList'] = $this->bindLinkItems($categories);
+                // $data['cards'] =$this->showProducts($products);
+                // $data['navList'] = $this->bindLinkItems($categories);
                 
-                $data['mainContent']="<h2 class='fst-italic text-success text-uppercase'>Hello  $loggedInUser  </h2>";
-                $data['mainContent'] .= $this->render(APP_PATH.VIEWS.'mainHomeView.html', $data);
+                // $data['mainContent']="<h2 class='fst-italic text-success text-uppercase'>Hello  $loggedInUser  </h2>";
+                // $data['mainContent'] .= $this->render(APP_PATH.VIEWS.'mainHomeView.html', $data);
                 
-                echo $this->render(APP_PATH.VIEWS.'customerView.html',$data);
+                // echo $this->render(APP_PATH.VIEWS.'customerView.html',$data);
         }else{
             
             $data['title'] = 'Home PAGE';

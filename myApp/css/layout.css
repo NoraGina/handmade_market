@@ -64,8 +64,8 @@ main{
 }
 
 .galery-img{
-    
-    cursor: pointer;
+    border-radius: 1em 1em 0 0;
+     cursor: pointer;
     height: 280px;
     object-fit: cover;
     object-position: center;
@@ -127,11 +127,7 @@ main{
     width: 100%;
 }
 
-.card{
-    border-radius: 1em 1em 0 0;
-    box-shadow: 0 5px 10px rgba(0,0,0,.2);
-    text-align: center;  
-}
+
  .open-modal{
     background-color: teal;
     border: none;
@@ -280,7 +276,11 @@ main{
 #cartForm{
     margin: auto;
     width:70%;
+
 }
+
+
+
 /*=============================================*/
 /* MEDIA*/
  @media only screen and (min-width: 991px) and (max-width: 1200px){
@@ -302,6 +302,9 @@ main{
     .my-container{
         margin: 18% auto auto auto;  
         width: 80%;
+    }
+    .myAside{
+        flex-direction: row;
     }
     
   }

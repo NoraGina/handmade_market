@@ -16,7 +16,7 @@ class AddToCartController extends AppController
             $name = $_POST['name'];
             $price = doubleval($_POST['price']);
             $quantity = (int)$_POST['itemQuantity'];
-            $storeId = $_POST['storeId'];
+            $storeId = (int)$_POST['storeId'];
             
            if (isset($_POST['productId'], $_POST['name'], $_POST['price'], $_POST['itemQuantity'])){
                     
@@ -45,7 +45,7 @@ class AddToCartController extends AppController
                                       echo"</pre>"; 
                    }
                          // Prevent form resubmission...
-                         header("Refresh:6; url=home"); 
+                         header("Refresh:2; url=home"); 
                         
                      
                       
