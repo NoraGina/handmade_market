@@ -71,4 +71,11 @@ class UsersModel extends DBModel
         return $result->fetch_assoc();
     }
 
+    public function getAllCustomers(){
+        $role = "CUSTOMER";
+        $sql ="SELECT * FROM `users` WHERE `role`='CUSTOMER';";
+        $result = $this->db()->query($sql);
+		return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
 }

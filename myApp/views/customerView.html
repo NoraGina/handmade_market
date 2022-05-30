@@ -17,6 +17,8 @@
     
     <script async defer src="myApp/js/openModals.js"></script>
     <script async defer src="myApp/js/displayFullText.js"></script>
+    <script async defer src="myApp/js/showModalAddress.js"></script>
+    <script async defer src="myApp/js/closeAddressModal.js"></script>
 </head>
 <body>
      <!--Container for both nav-->
@@ -52,6 +54,7 @@
                         {{address}}
                     </ul>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                       
                         <li class='nav-item ms-auto'>
                             <a class='nav-link' href="cart">
                                 <i class='bi bi-cart-fill'></i>Coș</a>
@@ -83,8 +86,8 @@
                 <!--END HAMBURGER-->
                 <!--COLAPSE NAVBAR-->
                 <div class='collapse navbar-collapse' id='navbarNavAltMarkup'>
-                    <form class='d-flex  me-2'>
-                        <input class='form-control  form-control-sm' type='search' placeholder='Caută produse' aria-label='Search'>
+                    <form class='d-flex  me-2' name='searchForm' method='POST' action='searchProduct'>
+                        <input name='searchTerm' class='form-control  form-control-sm' type='search' placeholder='Caută produse' aria-label='Search' onchange='serachForm.submit()'>
                         
                     </form>
 

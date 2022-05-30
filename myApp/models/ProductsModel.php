@@ -131,6 +131,12 @@ class ProductsModel extends DBModel
     // $result = $stmt->get_result();
     // return $result->fetch_all(MYSQLI_ASSOC);
    }
+
+   public function filterProductsByName($searchTerm){
+    $sql = "SELECT * FROM `products` WHERE LOWER(name) LIKE '$searchTerm%';";
+    $result = $this->db()->query($sql);
+    return $result->fetch_all(MYSQLI_ASSOC);
+   }
   
      
 }

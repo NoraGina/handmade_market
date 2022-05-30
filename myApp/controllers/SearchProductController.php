@@ -1,115 +1,92 @@
 <?php
-
-class HomeController extends AppController
+class SearchProductController extends AppController
 {
     public function __construct(){
         $this->init();
     }
 
     public function init(){
-        echo __FILE__;
         session_start();
+        
         $product = new ProductsModel;
-        $products = $product->getAllProducts();
-        $newUser = new UsersModel;
+        //$products = $product->filterProductsByCategoryId($id);
         $category = new CategoriesModel;
         $categories = $category->getAllCategories();
-       
-        if(isset($_SESSION['user']) ){
-            $loggedInUser=$_SESSION['user'];
+        
+        $searchTerm= $_POST['searchTerm'];
+        // echo $searchTerm;
+        // echo '<br>';
+        $searchTermToLowerCase = strtolower($searchTerm);
+        $searchProd = $product->filterProductsByName($searchTermToLowerCase);
+        // echo'<pre>';
+        //  var_dump($searchProd);
+        //  echo'</pre>';
+        if(isset($_SESSION['user']) && isset($_SESSION['cart'])){
+            $loggedInUser = $_SESSION['user'];
+            $newUser = new UsersModel;
             $user = $newUser->getOne($loggedInUser);
             $userId = $user['id'];
             $address = new ShippingAddressModel;
-            $customerAddress = $address->getShippingAddressByUserId($userId);
-            $role =$user['role'];
-            $userId = $user['id'];
-            if($role=='ADMIN'){
-                $stores = new StoresModel;
-                $store = $stores->getStoreByUserId($userId);
-                $storeName = $store['name'];
-                $data['title'] = 'Admin PAGE';
-                $data['message'] = "<h2 class='fst-italic text-success text-uppercase'>Welcome  $storeName  </h2>";
-                $data['mainContent'] = $this->render(APP_PATH.VIEWS.'mainAdminHomeView.html', $data);
-                echo $this->render(APP_PATH.VIEWS.'adminView.html',$data);
-            }else{
-                
-                if( isset($_SESSION['cart'])){
-                    $allProducts = $product->getAllProducts();
-//                     echo'<pre>';
-//                     var_dump($allProducts);
-//                     echo'</pre>';
-//                     $word = "Ca";
-//                     $filtered_arr = [];
-//                     // A foreach loop to iterate over key value pairs in the associative array.
-// foreach($allProducts as $name=>$product)
-// {
-//     //If the salary is more than 12,0000.
-//     if(stristr($product['name'], 'Ca'))
-//     {
-//         //Push to filtered array
-//         array_push($filtered_arr,$product);
-//     }
-// }
-// echo"Filter";
-// echo'<pre>';
-//                     var_dump($filtered_arr);
-//                     echo'</pre>';
-                    $data['title'] = 'Customer Home PAGE';
-                    $data['address']=$this->addressLink($user);
-                    $data['navList'] = $this->bindLinkItems($categories);
-                    
-                     if(!empty($products) ){
-                         $data['cards'] = $this->showProducts($products);
-                         $data['modals']=$this->modals($products);
-                         $data['mainContent']="<h2 class='fst-italic text-success text-uppercase'>Hello  $loggedInUser  </h2>";
-                         $data['mainContent'] .= $this->render(APP_PATH.VIEWS.'mainHomeView.html', $data);
-                         echo $this->render(APP_PATH.VIEWS.'customerView.html',$data);
-                         
-    
-                        }else{
-                           
-                            $data['mainContent']="<h2 class='fst-italic text-success text-uppercase'>Hello  $loggedInUser with cart </h2>";
-                            $data['mainContent'] .= "<h2 class='fst-italic text-danger '>Nu sunt produse  </h2>";
-                            echo $this->render(APP_PATH.VIEWS.'customerView.html',$data);
-                        }
-                }else{
-                    $data['title'] = 'Customer Home PAGE';
-                    $data['address']=$this->addressLink($user);
-                    $data['navList'] = $this->bindLinkItems($categories);
-                    $data['cards'] = $this->showProductsPublic($products);
-                    $data['modals']=$this->modals($products);
-                    $data['mainContent']="<h2 class='fst-italic text-success text-uppercase'>Hello  $loggedInUser  whitout cart</h2>";
-                    $data['mainContent'] .= $this->render(APP_PATH.VIEWS.'mainHomeView.html', $data);
-                    echo $this->render(APP_PATH.VIEWS.'customerView.html',$data);
-
-                }
-                
-            }
-        }else{
-            if(!empty($products)){
-                $data['title'] = 'Home PAGE';
+        $customerAddress = $address->getShippingAddressByUserId($userId);
+            if($searchProd){
+                $data['title'] = 'Fitered Products  PAGE';
+                $data['address']=$this->addressLink($user);
                 $data['navList'] = $this->bindLinkItems($categories);
-                $data['modals'] = $this->modals($products);
-                $data['cards'] = $this->showProductsPublic($products);
+                $data['cards'] = $this->showProductsFiltered($searchProd);
+                $data['modals']=$this->modalsFiltered($searchProd);
+                $data['mainContent']="<h2 class='fst-italic text-success text-uppercase'>Hello  $loggedInUser  </h2>";
+                $data['mainContent'] .= $this->render(APP_PATH.VIEWS.'mainHomeView.html', $data);
+                echo $this->render(APP_PATH.VIEWS.'customerView.html',$data);
+            }else{
+                $data['title'] = 'Fitered Products  PAGE';
+                $data['address']=$this->addressLink($user);
+                $data['navList'] = $this->bindLinkItems($categories);
+                $data['mainContent']="<h2 class='fst-italic text-danger '>Nu am găsit niciun rezultat </h2>";
+                //$data['mainContent'] .= $this->render(APP_PATH.VIEWS.'mainHomeView.html', $data);
+                echo $this->render(APP_PATH.VIEWS.'customerView.html',$data);
+            }
+        }elseif(isset($_SESSION['user'])){
+            if($searchProd){
+                $data['title'] = 'Fitered Products  PAGE';
+                $data['address']=$this->addressLink($user);
+                $data['navList'] = $this->bindLinkItems($categories);
+                $data['cards'] = $this->showProductsFiltered($searchProd);
+                $data['modals']=$this->modalsFiltered($searchProd);
+                $data['mainContent']="<h2 class='fst-italic text-success text-uppercase'>Hello  $loggedInUser  </h2>";
+                $data['mainContent'] .= $this->render(APP_PATH.VIEWS.'mainHomeView.html', $data);
+                echo $this->render(APP_PATH.VIEWS.'customerView.html',$data);
+            }else{
+                $data['title'] = 'Fitered Products  PAGE';
+                $data['address']=$this->addressLink($user);
+                $data['navList'] = $this->bindLinkItems($categories);
+                $data['mainContent']="<h2 class='fst-italic text-danger '>Nu am găsit niciun rezultat </h2>";
+                //$data['mainContent'] .= $this->render(APP_PATH.VIEWS.'mainHomeView.html', $data);
+                echo $this->render(APP_PATH.VIEWS.'customerView.html',$data);
+            }
+
+        }else{
+            if($searchProd){
+                $data['title'] = 'Fitered Products  PAGE';
+                $data['address']=$this->addressLink($user);
+                $data['navList'] = $this->bindLinkItems($categories);
+                $data['modals'] = $this->modalsFiltered($searchProd);
+                $data['cards'] = $this->showProductsPublicFiltered($searchProd);
                 $data['mainContent'] = $this->render(APP_PATH.VIEWS.'mainHomeView.html', $data);
         
                 echo $this->render(APP_PATH.VIEWS.'publicLayoutView.html',$data);
             }else{
-                $data['title'] = 'Home PAGE';
+                $data['title'] = 'Fitered Products  PAGE';
+                $data['address']=$this->addressLink($user);
                 $data['navList'] = $this->bindLinkItems($categories);
-                $data['mainContent'] = "<h2 class='fst-italic text-danger '>Nu sunt produse  </h2>";
+                $data['mainContent']="<h2 class='fst-italic text-danger '>Nu am găsit niciun rezultat </h2>";
+                $data['mainContent'] .= $this->render(APP_PATH.VIEWS.'mainHomeView.html', $data);
                 echo $this->render(APP_PATH.VIEWS.'publicLayoutView.html',$data);
             }
-            
-            
         }
         
     }
 
-    
-
-        //function to show products
-    public function showProducts($products){
+    public function showProductsFiltered($products){
     
         $output = "";
         if(is_array($products)){
@@ -201,7 +178,7 @@ class HomeController extends AppController
     }
 
     //function to show products public page
-    public function showProductsPublic($products){
+    public function showProductsPublicFiltered($products){
     
         $output = "";
         if(is_array($products)){
@@ -293,7 +270,7 @@ class HomeController extends AppController
         return $output;
     }
 
-    public function modals($products){
+    public function modalsFiltered($products){
         $output = "";
         if(is_array($products)){
         
@@ -396,81 +373,4 @@ class HomeController extends AppController
         }
         return $output;
     }
-
-    public function updateForm($user, $address){
-        $output="";
-        if($user && $address){
-            $id = $user['id'];
-            $userName = $user['userName'];
-           $output .="<li class='nav-item'>
-           <button type='button' class='btn btn-outline-light'  id='addressBtn'   style='border:none; padding:8px 0' onclick='toggleAddressModal()' >
-           <i class='bi bi-truck'>Adresa de livrare</i>
-           </button></li>";
-           
-        $output .="<div class='address-modal d-none mt-5'   id='addressModal' >
-                <div class='modal-dialog modal-dialog-centered'>    
-                    <div class='modal-content mb-3' >
-                            <div class='modal-header'>
-                                    <h5 class='modal-title' id='exampleModalLabel'>Adresa de livrare $userName</h5>
-                                    <button type='button' class='btn-close' id='spanBtn' onclick='removeAddressModal()'  aria-label='Close'></button>
-                            </div>
-                        <div class='modal-body'>
-                            <form action='updateShippingAddress/".$id."' method='GET' id='updateAddressForm' style='width:98%'>
-                                <fieldset class='form-group border border-2 border-black-50 rounded-2  p-3'>
-                            
-                                    <div class='mb-3 row'>
-                                        <label for='exampleFormControlInput2' class='col-sm-3 col-form-label'>Județ<span class='text-danger'>*</span></label>
-                                        <div class='col-sm-9'>
-                                        <input type='text' name='county' class='form-control' value='".$address['county']."' id='exampleFormControlInput2'
-                                            required>
-                                        </div>
-                                    </div>
-
-                                    <div class='mb-3 row'>
-                                        <label class='col-sm-3 col-form-label' for='form6Example6'>Oraș<span class='text-danger'>*</span></label>
-                                        <div class='col-sm-9'>
-                                            <input type='text' name='city' value='".$address['city']."' class='form-control' id='form6Example6' required>
-                                        </div>
-                                    </div>
-
-                                    <div class='mb-3 row'>
-                                        <label for='exampleFormControlTextarea2' class='col-sm-3 col-form-label'>Adresa<span class='text-danger'>*</span></label>
-                                        <div class='col-sm-9'>
-                                            <textarea class='form-control text-start' style='overflow: auto' name='address' value='".$address['address']."' id='exampleFormControlTextarea2' rows='2'required>
-                                            ".$address['address']."</textarea>
-                                        </div>
-                                    </div>
-                            
-                                    <div class='mb-3 row'>
-                                        <label for='exampleFormControlInput4' class='col-sm-3 col-form-label'>Cod poștal<span class='text-danger'>*</span></label>
-                                        <div class='col-sm-9'>
-                                            <input type='text' name='zipCode'  value='".$address['zipCode']."' class='form-control' id='exampleFormControlInput2'
-                                                required>
-                                        </div>
-                                    </div>
-                                    <div class='mb-3 row'>
-                                        <label for='exampleFormControlInput4' class='col-sm-3 col-form-label'>Telefon<span class='text-danger'>*</span></label>
-                                        <div class='col-sm-9'>
-                                            <input type='text' name='phone' value='".$address['phone']."' class='form-control text-start' id='exampleFormControlInput4' required
-                                                minlength='9' maxlength='10' >
-                                        </div>
-                                    </div>
-                                <input type='hidden'  value='".$address['id']."'>
-                                    <button type='submit' class='btn btn-primary btn-block  col-12' >Editează
-                                    adresa de livrare</button>
-                             </fieldset>
-                            </form>
-                        </div>
-                 </div>
-                    
-               </div> 
-           </div>";//modal
-           
-
-        }
-            return $output;
-        
-    }
-  
-
 }

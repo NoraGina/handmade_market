@@ -6,7 +6,7 @@ class UpdateProductController extends AppController
     }
 
     public function init(){
-        echo __FILE__;
+      
         session_start();
         if(isset($_SESSION['store'])){
             $userStore=$_SESSION['store'];

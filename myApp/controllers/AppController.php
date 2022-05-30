@@ -18,7 +18,10 @@ class AppController
                             'logout' => 'LogoutController',
                             'adminHome'=>'AdminHomeController',
                             'addShippingAddress' =>'AddShippingAddressController',
+                            'updateFormAddress' => 'UpdateFormAddressController',
+                            'updateShippingAddress'=>'UpdateShippingAddressController',
                             'filteredProducts' =>'FilteredProductsController',
+                            'searchProduct'=>'SearchProductController',
                             'addToCart' =>'AddToCartController',
                             'cart' =>'CartController',
                             'addOrder'=>'AddOrderController'
