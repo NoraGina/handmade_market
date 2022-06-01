@@ -53,28 +53,11 @@ class AddOrderController extends AppController
                 $type = $item['type'];
                 if($type == "Pe stoc"){
                     $productQuantity = $quantity - $itemQuantity;
-                     echo"<br>";
-                     var_dump($productQuantity);
                     $productModel->updateQuantity($productQuantity, $productId);
                 }
                 
             }
-            //  echo "Items";
-            //     echo"<pre>";
-            //     var_dump($items);
-            //     echo"<pre>";
-            // echo "Order";
-            // echo"<pre>";
-            // var_dump($lastOrder);
-            // echo"<pre>";
-           
-            // echo "Order items";
-            // echo"<pre>";
-            // var_dump($orderItems);
-            // echo"<pre>";
-            
-                
-            
+                  
              if($orderA  && $productsOrderItems){
                 echo "<h2 class='fst-italic text-success text-uppercase'>  $loggedInUser Comanda în valoare de $total a fost plasată </h2>";
                 header("Refresh:3 ; url=home");

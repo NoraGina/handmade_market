@@ -22,6 +22,7 @@ class CartController extends AppController{
             $loggedInUser = $_SESSION['user'];
              $user = new UsersModel;
              $customer = $user->getOne($loggedInUser);
+             
              $userId = $customer['id'];
              $address = new ShippingAddressModel;
              $addressCart = $address->getShippingAddressByUserId($userId);
@@ -32,7 +33,7 @@ class CartController extends AppController{
               
               
               $data['title']="Cart Page";
-              
+              $data['address']=$this->addressLink($customer);
               $data['navList'] = $this->bindLinkItems();
               $data['inputs'] = $this->outputCart( $customer, $addressCart );
               $data['table']=$this->table($items);
@@ -45,6 +46,18 @@ class CartController extends AppController{
           header("Refresh:2; url=home");
         }
     }
+
+    public function addressLink($user){
+      $output ="";
+      if($user){
+          $id = $user['id'];
+          $output .="<li class='nav-item'>
+          <a class='nav-link' href='updateFormAddress/".$id."' >
+          <i class='bi bi-truck'>Adresa de livrare</i>
+          </a></li>";
+      }
+      return $output;
+  }
 
     public function bindLinkItems(){
         $category = new CategoriesModel;
@@ -106,40 +119,44 @@ class CartController extends AppController{
          
          $name ="";
          if(is_array($items) ){
-             $output.="<table class='table table-bordered border-secundary'>";
-             $output.="<tr>";
-             $output.= "<th> Id</th>";
-             $output.= "<th> Nume produs</th>";
+              $output.="<table class='table table-bordered border-secundary'>";
+              $output.="<tr>";
+              $output.= "<th> Id</th>";
+              $output.= "<th> Nume produs</th>";
               $output.= "<th> Cantitate</th>";
-             $output.= "<th> Preț</th>";
+              $output.= "<th> Preț</th>";
               $output.= "<th> Subtotal</th>";
-              $output .="<th> Șterge</th>";
               $output .="<th> Editează</th>";
+              $output .="<th> Șterge</th>";
+             
            
               $output .="</tr>";
               $total =0;
               foreach($items as $key=> $item){
-                //$key = key($item);
-                  $subtotal = $item['quantity']*$item['price'];
-                 $total += $subtotal;
                 
-                 $intKey = intval($key);
+                $id =$item['id'];
+                $subtotal = $item['quantity']*$item['price'];
+                $total += $subtotal;
+                
+                 
                  $output .="<tr>";
+                 $output .="<form action='updateOrderItem/".$id."'' method='POST'>";
                  $output .="<td>"."<input type='text' class='form-control-plaintext' name='productId' value='".$item['id']."' readonly>"."</input>"
                  ."</td>";
                  $output .="<td>"."<input type='text' class='form-control-plaintext' name='name' value='".$item['name']."' readonly>"."</input>"."</td>";
-                 $output .="<td>"."<input type='text' class='form-control-sm' name='itemQuantity' value='".$item['quantity']."'>"."</input>"."</td>";
+                 $output .="<td>"."<input type='number' class='form-control-sm' name='itemQuantity' value='".$item['quantity']."'>"."</input>"."</td>";
                  $output .="<td>"."<input type='text' class='form-control-plaintext' name='price' value='".$item['price']."' readonly>"."</input>"."</td>";
                  $output .= "<td>".$subtotal."</td>";
 
-                 $output .= "<td><a href='deleteItem/".$intKey."' class='btn text-decoration-none' name>
-                 <input type='hidden' value='".$intKey."' name='key'></input>
-                 Șterge</a><td>";
+                  
+                $output .= "<td> <input type='sumbit' class='btn' value='Editează'/></td>";
+                
+                $output .="</form>";
+
+                 $output .= "<td><a href='deleteItem/".$id."' class='btn text-decoration-none' name>
+                 Șterge</a></td>";
                  
-                 
-                $output .= "<td><form action='updateOrderItem/".$intKey."'' method='POST'>
-                            <input type='hidden' value='".$item['id']."'></input>
-                            <input type='sumbit' class='btn' value='Șterge'/> </form></td>";
+                
 
                  $output.="</tr>";
                  

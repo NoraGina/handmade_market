@@ -18,6 +18,7 @@ class HomeController extends AppController
         if(isset($_SESSION['user']) ){
             $loggedInUser=$_SESSION['user'];
             $user = $newUser->getOne($loggedInUser);
+            //var_dump($user);
             $userId = $user['id'];
             $address = new ShippingAddressModel;
             $customerAddress = $address->getShippingAddressByUserId($userId);
