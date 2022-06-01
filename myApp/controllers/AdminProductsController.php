@@ -10,7 +10,6 @@ class AdminProductsController extends AppController
         session_start();
         if(isset($_SESSION['store'])){
             $userStore=$_SESSION['store'];
-            
             $product = new ProductsModel;
             $store = new StoresModel;
             $storeByName = $store->getStoreByName($userStore);

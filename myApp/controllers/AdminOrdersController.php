@@ -58,7 +58,7 @@ class AdminOrdersController extends AppController
             $subtotal = 0;
             $total = 0;
             foreach($orders as  $row){
-                $id=$row['id'];
+                $id=intval($row['id']);
                 $findedSuggestions = $row['suggestions'];
                 $strSugestions ="";
                 $total += $subtotal;
@@ -69,10 +69,10 @@ class AdminOrdersController extends AppController
                 }
                 $subtotal = $row['itemQuantity']*$row['price'];
                 $output .="<tr>";
-                $output .="<form method='POST' action='updateOrder/".$id."'>";
+                $output .="<form method='POST' action='adminUpdateOrder/".$id."'>";
                 $output .="<td>".$id."</td>";
                 $output .="<td>".$row['date']."</td>";
-                $output .="<td>"."<select class='form-select' aria-label='Default select example' value='".$row['status']."' name='status' required>".
+                $output .="<td>"."<select class='form-select' aria-label='Default select example'  name='status' required>".
                          "<option value='".$row['status']."'>".$row['status']."</option>".
                           "<option value='AFFECTED'>"."AFFECTED"."</option>".
                           "<option value='ACCEPTED'>"."ACCEPTED"."</option>".
@@ -93,7 +93,7 @@ class AdminOrdersController extends AppController
                 $output .="</form>";
                 $output .="<td>".
                         "<button name='deleteOrder'  class='btn btn-danger rounded-pill' onclick='return confirm(\"Sigur vrei să ștergi această comandă?\")'>".
-                        "<a class='text-light text-decoration-none '  href='deleteOrder/".$id."' >".
+                        "<a class='text-light text-decoration-none '  href='adminDeleteOrder/".$id."' >".
                         "Delete"."</a>"."</button>"."</td>";
                 $output .="</tr>";
             }

@@ -73,5 +73,15 @@ public function getAllOrdersByStoreId($storeId){
    return $result;
 }
 
+//update status
+  public function updateStatus($status){
+    $id = $_GET['id'];
+    $sql ="UPDATE `orders` SET `status`= ? WHERE `orders`.`id` = $id;";
+    $myPrep = $this->db()->prepare($sql);
+    
+    $myPrep->bind_param("s",$status );
+    return $myPrep->execute();
+    
+  }
 
 }
