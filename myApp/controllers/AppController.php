@@ -14,6 +14,7 @@ class AppController
                             'productForm'=>'ProductFormController',
                             'updateProduct'=>'UpdateProductController',
                             'adminProducts'=>'AdminProductsController',
+                            'adminOrders' => 'AdminOrdersController',
                             'deleteProduct'=>'DeleteProductController',
                             'logout' => 'LogoutController',
                             'adminHome'=>'AdminHomeController',

@@ -57,5 +57,21 @@ public function getLastOrder($customerId){
   return $result->fetch_assoc();
 }
 
+public function getAllOrdersByStoreId($storeId){
+  $sql ="SELECT `orders`.`id`, `orders`.`date`, `orders`.`status`, 
+  `orders`.`suggestions`, `users`.`fullName`, `users`.`email`, 
+  `shipping_address`.`county`, `shipping_address`.`city`, 
+  `shipping_address`.`address`, `shipping_address`.`zipCode`, 
+  `shipping_address`.`phone`, `order_items`.`itemQuantity`,
+   `products`.`name`, `products`.`price` FROM `orders` 
+   INNER JOIN `users` ON `orders`.`customerId`=`users`.`id` 
+   INNER JOIN `shipping_address` ON `orders`.`addressId`= `shipping_address`.`id` 
+   INNER JOIN `order_items` ON `order_items`.`orderId`=`orders`.`id` 
+   INNER JOIN `products` ON `order_items`.`productId` = `products`.`id` 
+   WHERE `orders`.`storeId` = $storeId;";
+   $result = $this->db()->query($sql)->fetch_all(MYSQLI_ASSOC);
+   return $result;
+}
+
 
 }
