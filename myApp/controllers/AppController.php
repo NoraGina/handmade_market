@@ -24,6 +24,7 @@ class AppController
                             'searchProduct'=>'SearchProductController',
                             'addToCart' =>'AddToCartController',
                             'cart' =>'CartController',
+                            'deleteItem'=>'DeleteItemController',
                             'addOrder'=>'AddOrderController'
                         ];
 

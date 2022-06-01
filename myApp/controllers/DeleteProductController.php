@@ -18,10 +18,11 @@ class DeleteProductController extends AppController
              
             $product = new ProductsModel;
              $id=$_GET['id'];
+             echo $id;
              //calling the method delete
              if($product->deleteProduct($id)){
-               //header("refresh: 3; url = ../adminProducts") ;
-                 header('Location: ../adminProducts');
+               header("refresh: 3; url = ../adminProducts") ;
+                 //header('Location: ../adminProducts');
                
              }else{
                 $data['title'] = 'Admin  PAGE';

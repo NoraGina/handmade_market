@@ -10,13 +10,14 @@ class AddOrderController extends AppController
         if (isset($_SESSION['user']) && isset($_SESSION['cart'])){
             $newUser = new UsersModel;
             $shipingAddress = new ShippingAddressModel;
-            $newOrder = new OrdersModel;
-            $newOrderItems = new OrderItemsModel;
+            $ordersModel = new OrdersModel;
+            $orderItemsModel = new OrderItemsModel;
+            $productModel = new ProductsModel;
             $items = $_SESSION['cart'];
             $loggedInUser = $_SESSION['user'];
             $customer = $newUser->getOne($loggedInUser);
             $customerId = $customer['id'];//userId
-            
+            echo $customerId;
             $customerAddres = $shipingAddress->getShippingAddressByUserId($customerId);
             
             $firstRow = $items[0];
@@ -26,50 +27,60 @@ class AddOrderController extends AppController
             $storeId =(int)$firstRow['storeId'];//storeId
             
             $productId = $_POST['productId'];
-            $quantity =$_POST['quantity'];
+            $quantity =$_POST['itemQuantity'];
             $suggestions = $_POST['suggestions'];
-           //$status = 'AFFECTED';
-           //$suggestions = "Nu am";
+           
             //query insert order
-            $orderA=$newOrder->addOrder($customerId, $addressId,  $suggestions, $storeId);
-            $lastOrder = $newOrder->getLastOrder($customerId);
-            $orderId = $lastOrder['id'];
-            //$newOrderItems->addOrderItems($items);
-            $orderItems = array();
-            foreach($items as $item){
+            $orderA = $ordersModel->addOrder($customerId, $addressId,  $suggestions, $storeId);
+            //GET LAST CUSTOMER ORDER
+             $lastOrder = $ordersModel->getLastOrder($customerId);
+             $orderId = $lastOrder['id'];//orderIs
+             //ORDER ITEMS INSERT
+             $total = 0;
+             foreach($items as $item){
                 $productId = $item['id'];
-                $quantity = $item['quantity'];
-                $orderItems= $newOrderItems->addOrderItem($productId, $quantity, $orderId);
-                // echo"<br>";
-                // echo $productId;
-                // echo"<br>";
+               $quantity = $item['quantity'];
+               $total += $item['quantity']*$item['price'];
+               $orderItems= $orderItemsModel->addOrderItem($productId, $quantity, $orderId);
+               
+             }
+            //Update product
+            $productsOrderItems = $orderItemsModel->getOrderItemsAndProducts($orderId);
+            foreach($productsOrderItems as $item){
+                $productId = $item['productId'];
+                $quantity = floatval($item['quantity']);
+                $itemQuantity = floatval($item['itemQuantity']);
+                $type = $item['type'];
+                if($type == "Pe stoc"){
+                    $productQuantity = $quantity - $itemQuantity;
+                     echo"<br>";
+                     var_dump($productQuantity);
+                    $productModel->updateQuantity($productQuantity, $productId);
+                }
+                
             }
-            if($orderA && $orderItems){
-               echo "<h2 class='fst-italic text-success text-uppercase'>  $loggedInUser Comanda a fost plasată </h2>";
-               header("Refresh:2; url=home");
-            }
-            echo "Store";
-            echo'<br>';
-            echo $storeId;
-            echo'<br>';
-            echo "User id";
-            echo'<br>';
-            echo $customerId;
-            echo'<br>';
-            echo "Shipping address id";
-            echo'<br>';
-            echo $addressId;
-            // echo "Order id";
-            // echo'<br>';
-            // echo $orderId;
-        //    echo'<br>';
-        //  echo "User Id";
-        //  echo $loggedInUser;
-        //  echo'<br>';
-        //  echo "Items";
-        //      echo'<pre>';
-        //      var_dump($items);
-        //      echo'</pre>';
+            //  echo "Items";
+            //     echo"<pre>";
+            //     var_dump($items);
+            //     echo"<pre>";
+            // echo "Order";
+            // echo"<pre>";
+            // var_dump($lastOrder);
+            // echo"<pre>";
+           
+            // echo "Order items";
+            // echo"<pre>";
+            // var_dump($orderItems);
+            // echo"<pre>";
+            
+                
+            
+             if($orderA  && $productsOrderItems){
+                echo "<h2 class='fst-italic text-success text-uppercase'>  $loggedInUser Comanda în valoare de $total a fost plasată </h2>";
+                header("Refresh:3 ; url=home");
+             }
+            
+           
         }
     }
 }

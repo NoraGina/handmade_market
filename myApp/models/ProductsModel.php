@@ -56,6 +56,12 @@ class ProductsModel extends DBModel
     return $result->fetch_assoc();
    }
 
+   public function getProductById($pId){
+     $sql = "SELECT * FROM `products` WHERE `id` = $pId ; ";
+     $result = $this->db()->query($sql);
+     return $result->fetch_assoc();
+   }
+
    // 
    public function filterProductsByCategoryId($id){
     //$id = $_GET['id'];
@@ -87,6 +93,16 @@ class ProductsModel extends DBModel
      return $myPrep->execute();
     }
 
+    //UPDATE QUANTITY
+    public function updateQuantity($pQuantity, $id){
+     // $id = $_GET['id'];
+      $sql="UPDATE `products` SET `quantity` = ? WHERE `products`.`id` = $id";
+     $myPrep = $this->db()->prepare($sql);
+     $myPrep->bind_param("d", $pQuantity);
+        
+     return $myPrep->execute();
+
+    }
    //Function delete product
    function deleteProduct($id){
      $q = "SELECT * FROM `products` WHERE `id` = $id";
@@ -108,7 +124,7 @@ class ProductsModel extends DBModel
    }
 
    public function getByMultipleIds( ){
-    $ids = [10,15,16,17];
+    $ids = [2,3];
     $idsStr = implode("," ,$ids);
     $sql = "SELECT * from products WHERE id IN( $idsStr )";
     $result = $this->db()->query($sql);

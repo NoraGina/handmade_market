@@ -35,25 +35,7 @@ class HomeController extends AppController
                 
                 if( isset($_SESSION['cart'])){
                     $allProducts = $product->getAllProducts();
-//                     echo'<pre>';
-//                     var_dump($allProducts);
-//                     echo'</pre>';
-//                     $word = "Ca";
-//                     $filtered_arr = [];
-//                     // A foreach loop to iterate over key value pairs in the associative array.
-// foreach($allProducts as $name=>$product)
-// {
-//     //If the salary is more than 12,0000.
-//     if(stristr($product['name'], 'Ca'))
-//     {
-//         //Push to filtered array
-//         array_push($filtered_arr,$product);
-//     }
-// }
-// echo"Filter";
-// echo'<pre>';
-//                     var_dump($filtered_arr);
-//                     echo'</pre>';
+
                     $data['title'] = 'Customer Home PAGE';
                     $data['address']=$this->addressLink($user);
                     $data['navList'] = $this->bindLinkItems($categories);
@@ -128,12 +110,14 @@ class HomeController extends AppController
 
                 //variable for display qunatity as string
                 $str ="";
+                $color="";
                 if($product['type']=="Pe stoc"){
                     //if quantity > 0 will display in stoc
                 if($product['quantity']>0){
                     $str="Produse pe stoc:  ".$product['quantity'];
                 }else{
                     $str="Produs indisponibil";
+                    $color="color:red";
                 }
                 }else{
                     $str="Produs la comandă";
@@ -151,8 +135,8 @@ class HomeController extends AppController
                 }
                 $output .=" <div class='col  '>";
                 //$output .=" <div class='col-10  col-sm-6 col-md-4 col-lg-3 col-xl-3 rounded-2'>";
-                $output .= "<div class='row d-flex justify-content-evenly align-items-start '>";
-                $output .=" <div class='card h-100'  id='cardId'>"; 
+                $output .= "<div class='row d-flex justify-content-start '>";
+                $output .=" <div class='card h-100 ms-2 mb-1'  id='cardId'>"; 
                 $output .="<div class='box-img'>"."<img src='myApp/img/".$product['image']."'class='product-img' alt=".$product['name']."/> "."</div>";//end box-img
                 $output .=" <div class='card-body'>";
                 $output .="<h5 class='card-title '>".$product['name']."</h5>";
@@ -162,7 +146,7 @@ class HomeController extends AppController
                         "</span>"."<span class=' fst-italic read-more-btn more' id='more$id' value= ' Citește mai puțin...' data-target='text$id' onclick='displayAll()' >"." Citește mai mult..."."</span>".
                         "<p>";
                 $output .=" <p class='text-start fs-6 lh-1'>"."Produs livrat de  ".$storeProduct['name']."</p>";
-                $output .="<p class='text-start fs-6 lh-1'>".$str."</p>";
+                $output .="<p class='text-start fs-6 lh-1' style='$color'>".$str."</p>";
                 $output .="<p class='text-start fs-6 lh-1'>".$delivery."</p>";
                 $output .=" <p class='text-start  fs-6 lh-1'>"."Preț "."<span>".$product['price']."</span>"." Lei "."</p>";
                 // $output .=" <div class='row '>";
@@ -220,12 +204,14 @@ class HomeController extends AppController
 
                 //variable for display qunatity as string
                 $str ="";
+                $color="";
                 if($product['type']=="Pe stoc"){
                     //if quantity > 0 will display in stoc
                 if($product['quantity']>0){
                     $str="Produse pe stoc:  ".$product['quantity'];
                 }else{
                     $str="Produs indisponibil";
+                    $color="color:red";
                 }
                 }else{
                     $str="Produs la comandă";
@@ -244,7 +230,7 @@ class HomeController extends AppController
                 $output .=" <div class='col  '>";
                 //$output .=" <div class='col-10  col-sm-6 col-md-4 col-lg-3 col-xl-3 rounded-2'>";
                 $output .= "<div class='row d-flex justify-content-evenly align-items-start rounded-2'>";
-                $output .=" <div class='card h-100 ' style='border:1px solid #ffcc99;width: 19rem;padding:0px'>"; 
+                $output .=" <div class='card h-100 ' id='publicCard'>"; 
                 $output .="<div class='box-img'>"."<img src='myApp/img/".$product['image']."'class='product-img' alt=".$product['name']."/> "."</div>";//end box-img
                 $output .=" <div class='card-body'>";
                 $output .="<h5 class='card-title '>".$product['name']."</h5>";
@@ -254,7 +240,7 @@ class HomeController extends AppController
                         "</span>"."<span class=' fst-italic read-more-btn more' id='more$id' value= ' Citește mai puțin...' data-target='text$id' onclick='displayAll()' >"." Citește mai mult..."."</span>".
                         "<p>";
                 $output .=" <p class='text-start fs-6 lh-1'>"."Produs livrat de  ".$storeProduct['name']."</p>";
-                $output .="<p class='text-start fs-6 lh-1'>".$str."</p>";
+                $output .="<p class='text-start fs-6 lh-1' style='$color'>".$str."</p>";
                 $output .="<p class='text-start fs-6 lh-1'>".$delivery."</p>";
                 $output .=" <p class='text-start  fs-6 lh-1'>"."Preț "."<span>".$product['price']."</span>"." Lei "."</p>";
                 // $output .=" <div class='row '>";
@@ -308,12 +294,14 @@ class HomeController extends AppController
 
                 //variable for display qunatity as string
                 $str ="";
+                $color ="";
                 if($product['type']=="Pe stoc"){
                     //if quantity > 0 will display in stoc
                 if($product['quantity']>0){
                     $str="Produse pe stoc:  ".$product['quantity'];
                 }else{
                     $str="Produs indisponibil";
+                    $color="color:red";
                 }
                 }else{
                     $str="Produs la comandă";
@@ -342,7 +330,7 @@ class HomeController extends AppController
                 $output .="<p class='fs-6 '>"."Livrat de "."<span class='class=fs-6 text fw-bolder'>".$storeProduct['name']."</span>"."</p>";
                 $output .="<p class=' fs-6'>".$delivery."</p>";
                 $output .="<p class='fs-6 '>"."Alte oferte "."<span class='class=fs-6 text fw-bolder'>".$storeProduct['otherFacilities']."</span>"."</p>";
-                $output .="<p class='fs-6'>".$str."</p>";
+                $output .="<p class='fs-6' style='$color'>".$str."</p>";
                 $output .="<p class='fs-6'>"."Preț: "."<span class='class=fs-6 text fw-bolder'>".$product['price']."</span>"."<span class='fs-6 text'>"." Lei"."<span>"."</p>";
                 
                 $output .=  "<form action='addToCart' method='POST'>".

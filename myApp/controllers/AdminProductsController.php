@@ -6,7 +6,7 @@ class AdminProductsController extends AppController
     }
 
     public function init(){
-        echo __FILE__;
+        
         session_start();
         if(isset($_SESSION['store'])){
             $userStore=$_SESSION['store'];
@@ -45,7 +45,7 @@ class AdminProductsController extends AppController
 
           //Get all products by store id into table for admin
   public function getAllProductsAdmin($result){
-    $category = new CategoriesModel;
+    $categoryModel = new CategoriesModel;
     $catOutput = $this->bindSelect();
     $output = "";
     if(is_array($result)){
@@ -63,17 +63,22 @@ class AdminProductsController extends AppController
             $output .="</tr>";
         //iterate over array
         foreach($result as  $row){
+            $cId = $row['categoryId'];
+            $category = $categoryModel->findCategoryById($cId);
             $id=$row['id'];
             $output .="<tr>";
             $output .="<form method='POST' action='updateProduct/".$id."'>";
             $output .="<td>"."<input type='text' class='form-control-sm' name='name' value='".$row['name']."'>"."</input>"."</td>";
             $output .="<td>"."<textarea class='form-control' name='description' id='exampleFormControlTextarea1'
             style='height: 100px' required>".$row['description']."</textarea>"."</td>";
-            $output .="<td>"."<input type='file'  name='myImage' class='form-control' id='form6Example6'>".
+            $output .="<td>"."<input type='text' class='form-control-sm' name='previous' value='".$row['image']."'>"."</input>".
+                     "<input type='file'  name='image' class='form-control' id='form6Example6'>".
                     "<img src='myApp/img/".$row['image']."' height='80px' width='80px'/> ".
-                     "</td>";
+                    "</td>";
             $output .="<td>"."<input type='text' style='width:60px' class='form-control-sm' name='price' value='".$row['price']."'>"."</input>"."</td>";
-            $output .="<td>". $catOutput."</td>";
+            $output .="<td>"."<select class='form-select' aria-label='Default select example' value='".$row['categoryId']."' name='categoryId' required>".
+                        "<option value='".$row['categoryId']."'>".$category['name']."</option>".
+                       $catOutput."</select>"."</td>";
             
             $output .="<td>"."<select class='form-select' aria-label='Default select example' value='".$row['type']."' name='type' required>".
             "<option value='".$row['type']."'>".$row['type']."</option>".
@@ -104,13 +109,13 @@ class AdminProductsController extends AppController
         
         $output = '';
         if(is_array($categories)){
-             $output .= "<select class='form-select' style='width:160px' name='categoryId' >";
+            
                
                 foreach($categories as $row){
                     
                     $output .= '<option value="'.$row["id"].'">'.$row["name"].'</option>';
                 }
-                $output .= '</select>';
+                
            
            
         }

@@ -37,7 +37,7 @@ class OrderItemsModel extends DBModel
 
     public function addOrderItem($productId, $quantity, $orderId){
         
-        $sql = "INSERT INTO `order_items`(`productId`,`quantity`, `orderId`) 
+        $sql = "INSERT INTO `order_items`(`productId`,`itemQuantity`, `orderId`) 
         VALUES ($productId, $quantity, $orderId);";
         $result = $this->db()->query($sql);
         // if ($result === TRUE) {
@@ -51,5 +51,12 @@ class OrderItemsModel extends DBModel
      return  $result;
          
         // return $this->db()-> insert_id;
+     }
+
+     //SELECT 
+     public function getOrderItemsAndProducts($orderId){
+         $sql = "SELECT `order_items`.id, `order_items`.`productId`,`order_items`.`itemQuantity`, `products`.id, `products`.`type`, `products`.`quantity` FROM `order_items` INNER JOIN `products` ON `order_items`.`productId` = `products`.id WHERE `order_items`.`orderId`=$orderId;";
+         $result = $this->db()->query($sql);
+         return $result->fetch_all(MYSQLI_ASSOC);
      }
 }

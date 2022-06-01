@@ -10,7 +10,15 @@ class CartController extends AppController{
         if( isset($_SESSION['user']) && isset($_SESSION['cart']) && !empty($_SESSION['cart'])){
           $category = new CategoriesModel;
           $items = $_SESSION['cart'];
-            
+          echo'<pre>';
+          var_dump($items);
+          echo'</pre>';
+          echo'<br>';
+          echo'Keys';
+          print_r(array_keys($items));
+          echo'<br>';
+          echo"Key";
+          print_r(key($items));
             $loggedInUser = $_SESSION['user'];
              $user = new UsersModel;
              $customer = $user->getOne($loggedInUser);
@@ -95,7 +103,7 @@ class CartController extends AppController{
      public function table($items){
         $product = new ProductsModel;
          $output ="";
-         $id = 0;
+         
          $name ="";
          if(is_array($items) ){
              $output.="<table class='table table-bordered border-secundary'>";
@@ -105,25 +113,39 @@ class CartController extends AppController{
               $output.= "<th> Cantitate</th>";
              $output.= "<th> Preț</th>";
               $output.= "<th> Subtotal</th>";
+              $output .="<th> Șterge</th>";
+              $output .="<th> Editează</th>";
            
-        //      $output .="<th> Editează</th>";
-        //      $output .="<th> Șterge</th>";
               $output .="</tr>";
               $total =0;
-              foreach($items as  $item){
+              foreach($items as $key=> $item){
+                //$key = key($item);
                   $subtotal = $item['quantity']*$item['price'];
                  $total += $subtotal;
-                 $id =$item['id'];
+                
+                 $intKey = intval($key);
                  $output .="<tr>";
-                 $output .="<td>"."<input type='text' class='form-control-plaintext' name='productId' value='".$item['id']."' readonly>"."</input>"."</td>";
+                 $output .="<td>"."<input type='text' class='form-control-plaintext' name='productId' value='".$item['id']."' readonly>"."</input>"
+                 ."</td>";
                  $output .="<td>"."<input type='text' class='form-control-plaintext' name='name' value='".$item['name']."' readonly>"."</input>"."</td>";
-                 $output .="<td>"."<input type='text' class='form-control-sm' name='quantity' value='".$item['quantity']."'>"."</input>"."</td>";
+                 $output .="<td>"."<input type='text' class='form-control-sm' name='itemQuantity' value='".$item['quantity']."'>"."</input>"."</td>";
                  $output .="<td>"."<input type='text' class='form-control-plaintext' name='price' value='".$item['price']."' readonly>"."</input>"."</td>";
                  $output .= "<td>".$subtotal."</td>";
+
+                 $output .= "<td><a href='deleteItem/".$intKey."' class='btn text-decoration-none' name>
+                 <input type='hidden' value='".$intKey."' name='key'></input>
+                 Șterge</a><td>";
                  
+                 
+                $output .= "<td><form action='updateOrderItem/".$intKey."'' method='POST'>
+                            <input type='hidden' value='".$item['id']."'></input>
+                            <input type='sumbit' class='btn' value='Șterge'/> </form></td>";
+
                  $output.="</tr>";
+                 
                 
               }
+
                        
                  }
                        
