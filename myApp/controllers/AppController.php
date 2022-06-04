@@ -27,6 +27,7 @@ class AppController
                             'addToCart' =>'AddToCartController',
                             'cart' =>'CartController',
                             'deleteItem'=>'DeleteItemController',
+                            'updateOrderItem' =>'UpdateOrderItemController',
                             'addOrder'=>'AddOrderController'
                         ];
 

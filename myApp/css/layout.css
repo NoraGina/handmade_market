@@ -322,7 +322,7 @@ main{
 }
 
 #cartForm{
-    margin: auto;
+    margin: auto auto 5px auto;
     width:70%;
 
 }

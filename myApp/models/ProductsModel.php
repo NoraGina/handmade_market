@@ -62,6 +62,8 @@ class ProductsModel extends DBModel
      return $result->fetch_assoc();
    }
 
+   
+
    // 
    public function filterProductsByCategoryId($id){
     //$id = $_GET['id'];
