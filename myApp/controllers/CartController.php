@@ -103,7 +103,7 @@ class CartController extends AppController{
           <textarea class='form-control' name='suggestions' aria-label='Alte specificații'></textarea>
         </div>";
         $output .="<h6> Dorești să schimbi adresa de livrare? <a  href='updateFormAddress/".$id."' >
-        <i class='bi bi-truck'>Adresa de livrare</i>
+        Adresa de livrare
         </a></h6>"; 
         $total =0;  
           

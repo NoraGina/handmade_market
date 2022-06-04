@@ -27,14 +27,16 @@ class UpdateProductController extends AppController
             $oldimage = $_POST['previous'];
            // $newImage = $_FILES['image']['name'];
             $pStoreId = $storeId;
+
             //IMAGE
+            $imgName = $_FILES['image']['name'];
+            $imgSize = $_FILES['image']['size'];
+            $tmpName = $_FILES['image']['tmp_name'];
+            $error = $_FILES['image']['error'];
            $id = $_GET['id'];
            echo $id;
             if(isset($_FILES['image']['name'])){
-                $imgName = $_FILES['image']['name'];
-                $imgSize = $_FILES['image']['size'];
-	            $tmpName = $_FILES['image']['tmp_name'];
-	            $error = $_FILES['image']['error'];
+               
                 if($error === 0){
                     if($imgSize > 1000000){
                         $em = "Sorry, your file is too large.";
@@ -62,7 +64,7 @@ class UpdateProductController extends AppController
                             if(unlink($previous)){
                                $upadateProd= $product->updateProductWithImage($pName,$pDescription, $newImgFilename,$pPrice,  $pCategoryId, $pType, $pQuantity);
                                if($updateProd){
-                                header("Refresh:3; url=../adminProducts");
+                                //header("Refresh:6; url=../adminProducts");
                                 //header('Location:../adminProducts');
                                 
                             }else{
@@ -91,8 +93,8 @@ class UpdateProductController extends AppController
                 }
             }else{
                 if($product->updateProduct($pName,$pDescription, $pPrice,  $pCategoryId, $pType, $pQuantity)){
-                    header('Location:../adminProducts');
-                    //("refresh: 3; url = ../adminProducts") ;
+                    //header('Location:../adminProducts');
+                   // header("Refresh: 6; url = ../adminProducts") ;
                     
                 }else{
                     $data['title'] = 'Admin PAGE';

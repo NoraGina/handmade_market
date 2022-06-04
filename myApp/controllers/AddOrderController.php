@@ -1,13 +1,22 @@
 
           <style>
- 
+  
  body{
-          
-   
-    background-color: lavender;
+          background-color: #536976;
         
-    
- }
+     }
+     .container{
+         margin-top:10px;
+         text-align:center;
+     }
+     h2{
+        color: #ccccff;
+        font-style: italic;
+        text-transform: uppercase;
+     }
+     h4{
+        color: #ccccff;
+     }
   
   
  </style>
@@ -34,11 +43,10 @@ class AddOrderController extends AppController
  
             $customerAddres = $shipingAddress->getShippingAddressByUserId($customerId);
             
-            //$firstRow = $items[0];
-           // $firstKey = $firstRow['id'];
+           
             //FORM DATA
             $addressId = $customerAddres['id'];//shippingAddressId
-           // $storeId =(int)$firstRow['storeId'];//storeId
+          
             
             $productId = $_POST['id'];
             $quantity =$_POST['itemQuantity'];
@@ -49,7 +57,7 @@ class AddOrderController extends AppController
                 $orderA = $ordersModel->addOrder($customerId, $addressId,  $suggestions, $storeId);
                 //GET LAST CUSTOMER ORDER
                 $lastOrder = $ordersModel->getLastOrder($customerId);
-                $orderId = $lastOrder['id'];//orderIs
+                $orderId = $lastOrder['id'];//orderId
                 //ORDER ITEMS INSERT
                 $total = 0;
                 foreach($items as $item){
@@ -76,8 +84,10 @@ class AddOrderController extends AppController
             
                   
              if($orderA ){
-                echo "<h2 class='fst-italic text-success text-center text-uppercase'> Comanda ta,  $loggedInUser în valoare de $total Lei a fost înregistrată </h2>";
-                echo "<h4 class='fst-italic text-success text-center '> Vă mulțumim că ați comandat la noi, vă vom contacta prin e-mail cu detaliile comenzii dvs. </h2>";
+                 echo"<div class='container'>
+                 <h2 class='fst-italic text-light  text-uppercase'> Comanda ta, &nbsp; $loggedInUser &nbsp; în valoare de &nbsp;$total Lei a fost înregistrată </h2>
+                <h4 class='fst-italic text-light text-center '> Vă mulțumim că ați comandat la noi, vă vom contacta prin e-mail cu detaliile comenzii dvs. </h2>
+                </div>";
                 header("Refresh:5 ; url=home");
                
                $_SESSION['cart']= array();

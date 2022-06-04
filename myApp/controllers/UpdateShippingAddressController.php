@@ -8,12 +8,12 @@ class UpdateShippingAddressController extends AppController
     public function init(){
         // echo __FILE__;
         session_start();
-        if(isset($_SESSION['user']) ){
+        if(isset($_SESSION['user']) && isset($_SESSION['cart'])){
             $loggedInUser=$_SESSION['user'];
             $user = new UsersModel;
             $customer = $user->getOne($loggedInUser);
             $userId = $customer['id'];
-            echo $userId;
+            
             $shippingAddress = new ShippingAddressModel;
             //FORM DATA
             $sCounty = $_POST['sCounty'];
@@ -23,15 +23,17 @@ class UpdateShippingAddressController extends AppController
             $sZipCode = $_POST['sZipCode'];
             $sPhone = $_POST['sPhone'];
             echo"<br>";
-            echo $sCounty;
+            
             $newAddress = $shippingAddress->updateShippingAddress($sCounty, $sCity, $sAddress, $sZipCode, $sPhone);
             if( $newAddress){
                 header("Refresh:6; url=../home");
-                //header('Location:../home');
+               // header('Location:../home');
             }else{
                 echo"Ceva nu a mers bine";
                 header("Refresh:6; url=../home");
             }
+        }else{
+            echo "Something";
         }
     }
 

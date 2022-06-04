@@ -12,8 +12,11 @@
 }
 
 #primaryNavBar{
-    
-    background-image: linear-gradient(rgb(30, 0, 255), rgb(40, 25, 150));
+    background: #141E30;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #243B55, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    /*background-image: linear-gradient(rgb(30, 0, 255), rgb(40, 25, 150));*/
     font-family: 'Montserrat', 'sans-serif';
 }
 #primaryNavBar a{
@@ -40,7 +43,11 @@
 
 /* ********** FITER NAVBAR ***************** */
 #filterNavBar{
-    background-image: linear-gradient(rgb(35, 14, 158),rgb(11, 4, 161) );
+    /*background-image: linear-gradient(rgb(35, 14, 158),rgb(11, 4, 161) );*/
+    background: #141E30;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #243B55, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     font-family: "Montserrat";
     width: 100%;
 }

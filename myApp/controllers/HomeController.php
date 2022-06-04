@@ -7,7 +7,7 @@ class HomeController extends AppController
     }
 
     public function init(){
-        echo __FILE__;
+        //echo __FILE__;
         session_start();
         $product = new ProductsModel;
         $products = $product->getAllProducts();
