@@ -9,6 +9,8 @@ class AppController
                             'about' => 'AboutController',
                             'login' => 'LoginController',
                             'signup' => 'SignUpController',
+                            'searchUser'=>'SearchUserController',
+                            'updateUser'=>'UpdateUserController',
                             'addStore'=>'AddStoreController',
                             'addProduct' => 'AddProductController',
                             'productForm'=>'ProductFormController',

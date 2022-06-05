@@ -18,10 +18,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <script async defer src="myApp/js/showHidePasswordSignup.js"></script>
     <script async defer src="myApp/js/showHidePasswordLogin.js"></script>
+    <script async defer src="myApp/js/showHideUpdatePassword.js"></script>
     <script async defer src="myApp/js/checkPasswords.js"></script>
+    <script async defer src="myApp/js/checkUpdatePasswords.js"></script>
     <script async defer src="myApp/js/openModals.js"></script>
     <script async defer src="myApp/js/displayFullText.js"></script>
     <script async defer src="myApp/js/toggleMoreLess.js"></script>
+    <script async defer src="myApp/js/toggleUpdateUserModal.js"></script>
+    <script async defer src="myApp/js/closeUpdateUserModal.js"></script>
 
 </head>
 
@@ -92,8 +96,8 @@
                 <!--END HAMBURGER-->
                 <!--COLAPSE NAVBAR-->
                 <div class='collapse navbar-collapse' id='navbarNavAltMarkup'>
-                    <form class='d-flex  me-2'>
-                        <input class='form-control  form-control-sm' type='search' placeholder='Caută produse' aria-label='Search'>
+                    <form class='d-flex  me-2'  name='searchForm' method='POST' action='searchProduct'>
+                        <input name='searchTerm' class='form-control  form-control-sm' type='search' placeholder='Caută produse' aria-label='Search' onchange='searchForm.submit()'>
                         
                     </form>
 
@@ -253,72 +257,23 @@
 
                 <div class="modal-body">
                     <!--SEARCH FORM-->
-                    <form>
+                    <form name='searchEmailForm' method='POST' action='searchUser' id="searchEmailForm">
                         <fieldset class="form-group border border-2 border-info p-3">
                             <legend>Search user</legend>
                             <div class="row mb-2">
                                 <label class="col-sm-3 col-form-label" for="forgotUsername">Email<span
                                         class="text-danger">*</span></label>
                                 <div class="col-sm-9">
-                                    <input type="email" name="updateEmail" class="form-control" id="forgotUsername"
-                                        placeholder="Enter@username">
+                                    <input class='form-control' type='search' name="searchEmail" placeholder='Introdu adresa de email' aria-label='Search' onchange='searchEmailForm.submit()'>
+                                    
                                 </div>
                             </div>
-                            <div class="mb-2">
-                                <button type="button" class="btn btn-info mx-auto w-100">Cauta</button>
-                            </div>
+                            
                         </fieldset>
                     </form>
                     <!--END SEARCH FORM-->
 
-                    <!--UPDATE FORM-->
-                    <form>
-                        <fieldset class="form-group border border-2 border-secondary rounded-2 p-2 mt-2">
-                            <legend class="w-auto px-2">UPDATE FORM</legend>
-                            <div class="row mb-2">
-                                <label class="col-sm-3 col-form-label" for="updateFullname">Full name <span
-                                        class="text-danger">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="updateFullname" class="form-control" id="updateFullname">
-                                </div>
-                            </div>
-
-                            <div class="row mb-2">
-                                <label class="col-sm-3 col-form-label" for="updateUsername">Username</label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="updateUsername" class="form-control" id="updateUsername">
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <label class="col-sm-3 col-form-label" for="updateEmail">Email</label>
-                                <div class="col-sm-9">
-                                    <input type="email" name="updateEmail" class="form-control" id="updateEmail">
-                                </div>
-                            </div>
-
-                            <div class="row mb-2">
-                                <label class="col-sm-3 col-form-label" for="updatePassword1">Password</label>
-                                <div class="col-sm-9">
-                                    <input type="password" name="updatePassword1" class="form-control"
-                                        id="updatePassword1">
-                                    <span class="update-viewer">
-                                        <i class="bi bi-eye-fill text-secondary showpwd" id="togglePassword"></i>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="row mb-2 d-none">
-                                <label class="col-sm-3 col-form-label" for="updatePassword2">Re-type:</label>
-                                <input type="password" class="form-control" id="updatePassword2" value="" required>
-
-                            </div>
-
-
-                            <div class="mb-2">
-                                <button type="button" class="btn btn-secondary mx-auto w-100">Update</button>
-                            </div>
-                        </fieldset>
-                    </form>
-                    <!--END UPDATE FORM-->
+                    
                 </div>
                 <!--END MODAL BODY-->
                 <div class="modal-footer">

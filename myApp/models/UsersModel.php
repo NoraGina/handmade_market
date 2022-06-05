@@ -78,4 +78,42 @@ class UsersModel extends DBModel
 		return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    //get user by email
+    // public function findUserByEmail($email){
+    //     $sql ="SELECT * FROM `users` WHERE `email`=$email;";
+    //     $result = $this->db()->query($sql);
+    //     return $result->fetch_assoc();
+    // }
+
+    public function findUserByEmail($email){
+        $sql = "SELECT * FROM `users` WHERE `email` = ? ; ";
+        $myPrep = $this->db()->prepare($sql);
+        $myPrep->bind_param("s", $email);
+        $myPrep->execute();
+        $result = $myPrep->get_result();
+        // if ($result === TRUE) {
+           
+        //     echo "New record created successfully. ". $sql . "<br>";
+        //    } else {
+        //     echo "Error: " . $sql . "<br>" . $this->db()->error;
+        //   }
+        return $result->fetch_assoc();
+    }
+
+    //Update user
+    public function updateUser($fullName, $userName, $email, $password, $hashedPassword, $role){
+        $id = $_POST['id'];
+        $sql ="UPDATE `users` SET `fullName`=?, `userName`=?, `email`=?, `password`=?, `hashedPassword`=?, `role`=? WHERE id=$id; ";
+        $myPrep = $this->db()->prepare($sql);
+        $myPrep->bind_param("ssssss",$fullName, $userName,  $email, $password, $hashedPassword, $role);
+        $result = $myPrep->execute();
+          if ($result === TRUE) {
+           
+            echo "New record updated successfully. ". $sql . "<br>";
+            } else {
+             echo "Error: " . $sql . "<br>" . $this->db()->error;
+           }
+        return $result;
+    }
+
 }

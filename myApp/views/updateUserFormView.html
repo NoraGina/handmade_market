@@ -1,0 +1,51 @@
+<!--UPDATE FORM-->
+<form action="updateUser" method="POST" id="updateForm">
+    <fieldset class="form-group border border-2 border-secondary rounded-2 p-2 mt-2">
+        <legend class="w-auto px-2">UPDATE FORM</legend>
+        <div class="row mb-2">
+            <label class="col-sm-3 col-form-label" for="updateFullname">Full name <span
+                    class="text-danger">*</span></label>
+            <div class="col-sm-9">
+                <input type="text" name="updateFullname" class="form-control" value={{fullName}} id="updateFullname">
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <label class="col-sm-3 col-form-label" for="updateUsername">Username</label>
+            <div class="col-sm-9">
+                <input type="text" name="updateUsername" value={{userName}} class="form-control" id="updateUsername">
+            </div>
+        </div>
+        <div class="row mb-2">
+            <label class="col-sm-3 col-form-label" for="updateEmail">Email</label>
+            <div class="col-sm-9">
+                <input type="email" name="updateEmail" value={{email}}  class="form-control" id="updateEmail">
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <label class="col-sm-3 col-form-label" for="updatePassword1">Password</label>
+            <div class="col-sm-9">
+                <input type="password" name="updatePassword1"  class="form-control"
+                    id="updatePassword1">
+                <span class="update-viewer">
+                    <i class="bi bi-eye-fill text-secondary showpwd" id="togglePassword" onclick="showHidePassUpdate()"></i>
+                </span>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <label class="col-sm-3 col-form-label" for="updatePassword2">Re-type</label>
+            <div class="col-sm-9">
+                <input type="password" name="updatePassword2"  class="form-control"
+                    id="updatePassword2">
+                
+            </div>
+        </div>
+         <div class="row mb-2">
+            <input type="hidden" name="role"  class="form-control" value={{role}}>
+            <input type="hidden" name="id"  class="form-control" value={{id}}>
+            <button type="submit" class="btn btn-secondary mx-auto w-80">Editează</button>
+        </div>
+    </fieldset>
+</form>
+<!--END UPDATE FORM-->

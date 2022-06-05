@@ -101,7 +101,10 @@ main{
   #forgotLoginId, #forgotSignupId{
     color: red;
 }
-
+#updateForm{
+    margin: auto;
+    width: 60%;
+}
 #loginPassword{
     position: relative;
 }
@@ -119,11 +122,22 @@ main{
 #signUpPass1{
     position: relative;
 }
+#updatePassword1{
+    position: relative;
+}
 .signup-viewer {
 	z-index: 9999;
 	position: absolute;
 	top: 55%;
 	right: 40px;
+    cursor: pointer;
+}
+
+.update-viewer{
+    z-index: 9999;
+	position: absolute;
+	top: 145%;
+	right: 290px;
     cursor: pointer;
 }
 /*==============================================*/
@@ -210,7 +224,17 @@ main{
 .remove-text{
     display: none;
 }
-
+.user-modal{
+    position: fixed;
+    z-index: 999; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+}
 
 .address-modal{
     

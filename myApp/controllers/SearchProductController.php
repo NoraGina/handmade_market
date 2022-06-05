@@ -14,7 +14,7 @@ class SearchProductController extends AppController
         $categories = $category->getAllCategories();
         
         $searchTerm= $_POST['searchTerm'];
-        // echo $searchTerm;
+         echo $searchTerm;
         // echo '<br>';
         $searchTermToLowerCase = strtolower($searchTerm);
         $searchProd = $product->filterProductsByName($searchTermToLowerCase);
@@ -27,7 +27,7 @@ class SearchProductController extends AppController
             $user = $newUser->getOne($loggedInUser);
             $userId = $user['id'];
             $address = new ShippingAddressModel;
-        $customerAddress = $address->getShippingAddressByUserId($userId);
+            $customerAddress = $address->getShippingAddressByUserId($userId);
             if($searchProd){
                 $data['title'] = 'Fitered Products  PAGE';
                 $data['address']=$this->addressLink($user);
@@ -45,7 +45,7 @@ class SearchProductController extends AppController
                 //$data['mainContent'] .= $this->render(APP_PATH.VIEWS.'mainHomeView.html', $data);
                 echo $this->render(APP_PATH.VIEWS.'customerView.html',$data);
             }
-        }elseif(isset($_SESSION['user'])){
+         }elseif(isset($_SESSION['user'])){
             if($searchProd){
                 $data['title'] = 'Fitered Products  PAGE';
                 $data['address']=$this->addressLink($user);
@@ -67,7 +67,7 @@ class SearchProductController extends AppController
         }else{
             if($searchProd){
                 $data['title'] = 'Fitered Products  PAGE';
-                $data['address']=$this->addressLink($user);
+                
                 $data['navList'] = $this->bindLinkItems($categories);
                 $data['modals'] = $this->modalsFiltered($searchProd);
                 $data['cards'] = $this->showProductsPublicFiltered($searchProd);
