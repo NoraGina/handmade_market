@@ -68,4 +68,11 @@ class StoresModel extends DBModel
         }
        
     }
+
+    //get all stores
+    public function getAllStores(){
+        $sql = "SELECT * FROM `stores`;";
+        $result = $this->db()->query($sql);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }

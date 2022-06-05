@@ -15,7 +15,8 @@ class FilteredProductsController extends AppController
         $category = new CategoriesModel;
         $categories = $category->getAllCategories();
         $categ = $category->findCategoryById($id);
-
+        $storeModel = new StoresModel;
+         $stores = $storeModel->getAllStores();
         $address = new ShippingAddressModel;
         if(isset($_SESSION['user']) && isset($_SESSION['cart'])){
             $loggedInUser=$_SESSION['user'];
@@ -25,6 +26,7 @@ class FilteredProductsController extends AppController
             if(!empty($products) ){
                 $data['title'] = 'Filtered Products PAGE';
                  $data['navList'] = $this->bindLinkItems($categories);
+                 $data['storeList']=$this->listOfStores($stores);
                  $data['address']=$this->addressLink($user, $customerAddress);
                  $data['modals']=$this->modals($products);
                 $data['cards'] = $this->showProducts($products, $categ);
@@ -35,7 +37,7 @@ class FilteredProductsController extends AppController
             }else{
                 $data['title'] = 'Customer Home PAGE';
                 $data['navList'] = $this->bindLinkItems($categories);
-                
+                $data['storeList']=$this->listOfStores($stores);
                 $data['mainContent']="<h2 class='fst-italic text-success text-uppercase'>Hello  $loggedInUser  </h2>";
                 $data['mainContent'] .= "<h2 class='fst-italic text-danger '>Nu sunt produse în această categorie </h2>";
                 
@@ -45,6 +47,7 @@ class FilteredProductsController extends AppController
         }else{
             if(!empty($products) ){
                 $data['title'] = 'Filtred Products PAGE';
+                $data['storeList']=$this->listOfStores($stores);
                  $data['navList'] = $this->bindLinkItems($categories);
                  $data['modals']=$this->modals($products);
                  $data['cards'] = $this->showProductsPublic($products);
@@ -352,6 +355,21 @@ class FilteredProductsController extends AppController
             }
             return $output;
         }
+
+        //get all stores
+    public function listOfStores($stores){
+        $output="";
+        if(is_array($stores)){
+           
+            foreach($stores as $store){
+                $id = $store['id'];
+                $name = $store['name'];
+                $output.="<li class='bg-secondary border-bottom'><a class='dropdown-item' href='productsByStore/".$id."''>$name</a></li>";
+                
+            }
+            return $output;
+        }
+    }
                              
                 
 }

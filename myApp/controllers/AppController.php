@@ -26,6 +26,7 @@ class AppController
                             'updateShippingAddress'=>'UpdateShippingAddressController',
                             'filteredProducts' =>'FilteredProductsController',
                             'searchProduct'=>'SearchProductController',
+                            'productsByStore'=>'ProductsByStoreController',
                             'addToCart' =>'AddToCartController',
                             'cart' =>'CartController',
                             'deleteItem'=>'DeleteItemController',

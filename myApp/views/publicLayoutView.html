@@ -23,9 +23,8 @@
     <script async defer src="myApp/js/checkUpdatePasswords.js"></script>
     <script async defer src="myApp/js/openModals.js"></script>
     <script async defer src="myApp/js/displayFullText.js"></script>
-    <script async defer src="myApp/js/toggleMoreLess.js"></script>
-    <script async defer src="myApp/js/toggleUpdateUserModal.js"></script>
-    <script async defer src="myApp/js/closeUpdateUserModal.js"></script>
+ 
+    
 
 </head>
 
@@ -100,10 +99,20 @@
                         <input name='searchTerm' class='form-control  form-control-sm' type='search' placeholder='Caută produse' aria-label='Search' onchange='searchForm.submit()'>
                         
                     </form>
-
-                    <ul class='navbar-nav me-auto'>
+                
+                    <ul class='navbar-nav me-auto '>
                        {{navList}}
+                       <li class='nav-item dropdown'>
+                        <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                          Magazine
+                        </a>
+                        <ul class='dropdown-menu bg-secondary' aria-labelledby='navbarDropdown' id='dropdownId'>
+                         
+                          {{storeList}}
+                        </ul>
+                      </li>
                     </ul>
+                    
                     
                 </div>
                 <!--END COLAPSE NAVBAR-->

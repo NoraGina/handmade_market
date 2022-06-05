@@ -22,11 +22,10 @@ class AdminOrdersController extends AppController
                 $data['mainContent'] = $this->render(APP_PATH.VIEWS.'adminProductsView.html', $data);
                echo $this->render(APP_PATH.VIEWS.'adminView.html',$data);
             }else{
-                $data['title'] = 'Admin Products Page';
-            $data['message'] = "<h2 class='fst-italic text-success text-uppercase'> $userStore  </h2>";
-       
-            $data['tableContent'] ="<h2 class='fst-italic text-danger '>Nu ai comenzi  </h2>" ;
-            $data['mainContent'] = $this->render(APP_PATH.VIEWS.'adminProductsView.html', $data);
+               $data['title'] = 'Admin Products Page';
+               $data['message'] = "<h2 class='fst-italic text-success text-uppercase'> $userStore Nu ai comenzi </h2>";
+               $data['mainContent'] = $this->render(APP_PATH.VIEWS.'mainAdminHomeView.html', $data);
+               echo $this->render(APP_PATH.VIEWS.'adminView.html',$data);
             }
 
         }else{
