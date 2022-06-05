@@ -66,7 +66,7 @@ class AdminProductsController extends AppController
             $category = $categoryModel->findCategoryById($cId);
             $id=$row['id'];
             $output .="<tr>";
-            $output .="<form method='POST' action='updateProduct/".$id."'>";
+            $output .="<form method='POST' action='updateProduct/".$id."' enctype='multipart/form-data'>";
             $output .="<td>"."<input type='text' class='form-control-sm' name='name' value='".$row['name']."'>"."</input>"."</td>";
             $output .="<td>"."<textarea class='form-control' name='description' id='exampleFormControlTextarea1'
             style='height: 100px' required>".$row['description']."</textarea>"."</td>";
@@ -84,8 +84,8 @@ class AdminProductsController extends AppController
             "<option value='La comandă'>"."La comandă"."</option>".
             "<option value='Pe stoc'>"."Pe stoc"."</option>"."</select>"."</td>";
             $output .="<td>"."<input type='number' style='width:60px' class='form-control-sm' name='quantity' value='".$row['quantity']."'>"."</input>"."</td>";
-            $output.='<td>'.'<input type="hidden" name="id" value="'.$id.'">'.
-            '<input type="submit" name="updateButon" value="Update" class="btn btn-warning rounded-pill" onclick="return confirm(\'Sigur vrei să editezi acest produs?\')">'.'</td>';
+             $output.='<td>'.'<input type="hidden" name="id" value="'.$id.'">'.
+             '<input type="submit" name="updateButon" value="Update" class="btn btn-warning rounded-pill" onclick="return confirm(\'Sigur vrei să editezi acest produs?\')">'.'</td>';
             
             $output .="</form>";
             $output .="<td>".

@@ -25,17 +25,19 @@ class UpdateProductController extends AppController
             $pType = $_POST['type'];
             $pQuantity = $_POST['quantity'];
             $oldimage = $_POST['previous'];
+            echo"<br>";
+
            // $newImage = $_FILES['image']['name'];
             $pStoreId = $storeId;
 
-            //IMAGE
+            //IMAGE isset($_FILES['image']['name'])
             $imgName = $_FILES['image']['name'];
             $imgSize = $_FILES['image']['size'];
             $tmpName = $_FILES['image']['tmp_name'];
             $error = $_FILES['image']['error'];
            $id = $_GET['id'];
            echo $id;
-            if(isset($_FILES['image']['name'])){
+            if($imgName != ''){
                
                 if($error === 0){
                     if($imgSize > 1000000){
@@ -55,25 +57,21 @@ class UpdateProductController extends AppController
                             
                             $imgUploadPath = 'myApp/img/'.$newImgFilename;
                             move_uploaded_file($tmpName, $imgUploadPath);
-                            //$id=$_GET['id'];
-                        // $findProduct = $product->findProductById($id);
                             
-                            // Insert into Database
-                            //unlink("myApp/img/".$findProduct['image']);
-                            
-                            if(unlink($previous)){
-                               $upadateProd= $product->updateProductWithImage($pName,$pDescription, $newImgFilename,$pPrice,  $pCategoryId, $pType, $pQuantity);
+                           
+                               $updateProd= $product->updateProductWithImage($pName,$pDescription, $newImgFilename,$pPrice,  $pCategoryId, $pType, $pQuantity);
                                if($updateProd){
+                                unlink("myApp/img/".$oldimage);
                                 //header("Refresh:6; url=../adminProducts");
-                                //header('Location:../adminProducts');
+                                header('Location:../adminProducts');
                                 
-                            }else{
-                                $data['title'] = 'Admin PAGE';
-                                $data['message'] = "<h2 class='fst-italic text-danger text-uppercase'>  Ceva nu a mers bine!</h2>";
-                                $data['mainContent'] = $this->render(APP_PATH.VIEWS.'mainAdminHomeView.html', $data);
-                                echo $this->render(APP_PATH.VIEWS.'adminView.html',$data);
-                            }
-                            }
+                                }else{
+                                    $data['title'] = 'Admin PAGE';
+                                    $data['message'] = "<h2 class='fst-italic text-danger text-uppercase'>  Ceva nu a mers bine!</h2>";
+                                    $data['mainContent'] = $this->render(APP_PATH.VIEWS.'mainAdminHomeView.html', $data);
+                                    echo $this->render(APP_PATH.VIEWS.'adminView.html',$data);
+                                }
+                            
                             
                     }else{
                         $em = "You can't upload files of this type";
@@ -93,8 +91,8 @@ class UpdateProductController extends AppController
                 }
             }else{
                 if($product->updateProduct($pName,$pDescription, $pPrice,  $pCategoryId, $pType, $pQuantity)){
-                    //header('Location:../adminProducts');
-                   // header("Refresh: 6; url = ../adminProducts") ;
+                    header('Location:../adminProducts');
+                    // header("Refresh: 6; url = ../adminProducts") ;
                     
                 }else{
                     $data['title'] = 'Admin PAGE';
