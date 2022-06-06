@@ -1,4 +1,4 @@
-const updateForm = document.querySelector('#updateForm');
+const updateForm = document.querySelector("#updateForm");
 updateForm.addEventListener("submit", (e)=>{
     const pass1 = document.querySelector("#updatePassword1").value;
     const pass2 = document.querySelector("#updatePassword2").value;

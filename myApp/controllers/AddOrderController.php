@@ -68,18 +68,20 @@ class AddOrderController extends AppController
                 
                 }
                 //Update product
-                // $productsOrderItems = $orderItemsModel->getOrderItemsAndProducts($orderId);
-                // foreach($productsOrderItems as $item){
-                //     $productId = $item['productId'];
-                //     $quantity = floatval($item['quantity']);
-                //     $itemQuantity = floatval($item['itemQuantity']);
-                //     $type = $item['type'];
-                //     if($type == "Pe stoc"){
-                //     $productQuantity = $quantity - $itemQuantity;
-                //     $productModel->updateQuantity($productQuantity, $productId);
-                //     }
+                 $productsOrderItems = $orderItemsModel->getOrderItemsAndProducts($orderId);
+                 foreach($productsOrderItems as $item){
+                    $productQuantity=0;
+                     $productId = $item['productId'];
+                     $quantity = floatval($item['quantity']);
+                     $itemQuantity = floatval($item['itemQuantity']);
+                     $type = $item['type'];
+                     if($type == "Pe stoc"){
+                        $productQuantity = $quantity - $itemQuantity;
+                     $productModel->updateQuantity($productQuantity, $productId);
+                     }
+                    
                 
-                //}
+                }
            }
             
                   

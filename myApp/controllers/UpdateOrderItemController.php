@@ -26,51 +26,48 @@ class UpdateOrderItemController extends AppController
             // echo"</pre>";
             
             $id = (int)$_POST['id'];
-            // echo"SESSION";
-            // echo"<pre>";
-            // var_dump($_SESSION['cart']);
-            // echo"</pre>";
-            // echo"<br>";
+             echo"SESSION";
+             echo"<pre>";
+             var_dump($_SESSION['cart']);
+             echo"</pre>";
+             echo"<br>";
             
             foreach($_SESSION['cart'][$id] as $key=>$value){
             
             $_SESSION['cart'][$id]['itemQuantity']=$_POST['itemQuantity'];
             
             }
-            foreach($items as $item){
-                $pId = $item['id'];
+            // foreach($items as $item){
+            //     $pId = $item['id'];
                
-                $productModel = new ProductsModel;
-               $product = $productModel->getProductById($pId);
+            //     $productModel = new ProductsModel;
+            //    $product = $productModel->getProductById($pId);
                
-                $productQuantity = floatval($product['quantity']);
-                $itemQuantity = floatval($item['itemQuantity']);
-                $type = $product['type'];
-                if($type == "Pe stoc" && $itemQuantity != $quantity){
-                $updateQuantity = $productQuantity + $itemQuantity - $quantity;
-                $productModel->updateQuantity($updateQuantity, $pId);
-                }
+            //     $productQuantity = floatval($product['quantity']);
+            //     $itemQuantity = floatval($item['itemQuantity']);
+            //     $type = $product['type'];
+            //     if($type == "Pe stoc" && $itemQuantity != $quantity){
+            //     $updateQuantity = $productQuantity + $itemQuantity - $quantity;
+            //     $productModel->updateQuantity($updateQuantity, $pId);
+            //     }
             
-            }
+            // }
            
-            // echo"SESSION UPDATE";
-            //  echo"<pre>";
-            // var_dump($_SESSION['cart']);
-            // echo"</pre>";
+           
             
            
            
-                //header("Refresh:8;url=cart");
-                 header("Location:cart");
+                header("Refresh:5;url=cart");
+                 //header("Location:cart");
         }
     }
 
-    function updateOrders($items){
-        foreach($items as $item){
-            $_SESSION['cart'][$item['id']][$item['itemQuantity']]=$_POST['itemQuantity'];
-        }
-        return $_SESSION['cart'];
-    }
+    // function updateOrders($items){
+    //     foreach($items as $item){
+    //         $_SESSION['cart'][$item['id']][$item['itemQuantity']]=$_POST['itemQuantity'];
+    //     }
+    //     return $_SESSION['cart'];
+    // }
 
     
 }

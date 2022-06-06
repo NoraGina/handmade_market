@@ -25,11 +25,3 @@ function openProductModal(){
         
 }
 
-// // Feel free to use any other way to iterate over buttons
-// for (let i = 0; i < buttons.length; i++) {
-//   buttons[i].addEventListener("click", function (event) {
-//     let modal = (document.getElementById(
-//       event.target.getAttribute("data-target")
-//     ).style.display = "block");
-//   });
-// }

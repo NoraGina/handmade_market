@@ -24,7 +24,7 @@ class AddToCartController extends AppController
                     if(isset($_SESSION['cart']) && is_array ($_SESSION['cart'])){
                            //check if product is from same store
                         $checkIfStoreAreSame = array_column($_SESSION['cart'], 'storeId');
-                        if( empty($_SESSION['cart']) || (in_array($storeId, $checkIfStoreAreSame) &&  !empty($_SESSION['cart']))){
+                        if( (empty($_SESSION['cart'])) || (in_array($storeId, $checkIfStoreAreSame) &&  !empty($_SESSION['cart']))){
                             //add product into cart
                             $_SESSION['cart'][$productId] = array('id'=>$productId,
                             'name'=>$name,
