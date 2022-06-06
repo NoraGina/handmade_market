@@ -11,7 +11,7 @@ class DeleteItemController extends AppController
         if (isset($_SESSION['user']) && isset($_SESSION['cart'])){
             $id = $_GET['id'];
            $items = $_SESSION['cart'];
-           //$_SESSION['cart']= $items;
+           
            unset($_SESSION['cart'][$id]);
            //header("Refresh:9;url=../cart");
            header("Location:../cart");

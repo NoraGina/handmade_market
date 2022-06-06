@@ -127,18 +127,15 @@ class CartController extends AppController{
               $productModel = new ProductsModel;
               $product = $productModel->getProductById($id);
               $productQuantity = $product['quantity'];
-              $maxQuantity=0;
-              //$minQuantity = 0;
-              if($product['type']=="Pe stoc"){
-                $maxQuantity = $productQuantity- $item['itemQuantity'];
-              }else{
-                $maxQuantity = $productQuantity;
-              }
-               if($maxQuantity=0 && $productQuantity>$item['itemQuantity']){
-                $minQuantity=1;
-               }else{
-                 $minQuantity = 0;
-               }
+               $maxQuantity=0;
+              
+               if($product['type']=="Pe stoc"){
+                 $maxQuantity = $productQuantity- $item['itemQuantity'];
+                
+                 }
+                if($product['type']=="Pe stoc" && $maxQuantity==0){
+                  $maxQuantity = $productQuantity;
+                }   
               
               $subtotal = $item['itemQuantity']*$item['price'];
               $total += $subtotal;
@@ -148,7 +145,7 @@ class CartController extends AppController{
              
                      
               $output .="<td>"."<input type='text' class='form-control-plaintext' name='name' value='".$item['name']."' readonly>"."</input>"."</td>";
-              $output .="<td>"."<input type='number' class='form-control-sm' name='itemQuantity' value='".$item['itemQuantity']."' min='".$minQuantity."' max='".$maxQuantity."'>"."</input>"."</td>";
+              $output .="<td>"."<input type='number' class='form-control-sm' name='itemQuantity' value='".$item['itemQuantity']."' min='1' max='".$productQuantity."'>"."</input>"."</td>";
               $output .="<td>"."<input type='text' class='form-control-plaintext' name='price' value='".$item['price']."' readonly>"."</input>"."</td>";
               $output .= "<td>"."<input type ='hidden' name='storeId' value='".$item['storeId']."' >"."</input>".$subtotal."</td>";
              

@@ -31,15 +31,6 @@ class AddToCartController extends AppController
                             'price'=>$price,
                             'itemQuantity'=>$itemQuantity,
                             'storeId'=>$storeId);
-                            //Update product quantity
-                            $productModel = new ProductsModel;
-                            $product = $productModel->getProductById($productId);
-                            
-                            
-                                if($product['type']== "Pe stoc"){
-                                    $pQuantity = $product['quantity']- $itemQuantity;
-                                    $productModel->updateQuantity($pQuantity, $productId);
-                                }
                             
                             
                         }else{
