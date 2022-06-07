@@ -34,36 +34,23 @@ class ShippingAddressModel extends DBModel
         // $myPrep->close();
     }
 
-  public function updateShippingAddress($sCounty, $sCity, $sAddress, $sZipCode, $sPhone){
-     $id= $_GET['id'];
-    
-    $sql = "UPDATE `shipping_address` SET   `county` = '$sCounty',`city` = '$sCity', `address` = '$sAddress',  `zipCode` = '$sZipCode', `phone` = '$sPhone' WHERE `userId` = $id;";
-    
-      $result = $this->db()->query($sql);
-      if ($result === TRUE) {
-           
-                echo "New record created successfully. ". $sql . "<br>";
-               } else {
-                echo "Error: " . $sql . "<br>" . $this->db()->error;
-              }
-        return $result;
-  }
+  // UPDATE SHIPPING ADDRESS
 
-    //  public function updateShippingAddress($sCounty, $sCity, $sAddress, $sZipCode, $sPhone){
-    //      $id = $_GET['id'];
-    //      $sql="UPDATE `shipping_address` SET `county` = ?, `city` = ?,`address` = ?,`zipCode` = ?,`phone` = ? WHERE `shipping_address`.`id` = $id";
-    //      $myPrep = $this->db()->prepare($sql);
-    //      $myPrep->bind_param("sssss",$sCounty, $sCity, $sAddress, $sZipCode, $sPhone);
-    //      $result =  $myPrep->execute();
-    //      if ($result === TRUE) {
+      public function updateShippingAddress($sCounty, $sCity, $sAddress, $sZipCode, $sPhone){
+          $id = $_GET['id'];
+          $sql="UPDATE `shipping_address` SET `county` = ?, `city` = ?,`address` = ?,`zipCode` = ?,`phone` = ? WHERE `shipping_address`.`userId` = $id";
+          $myPrep = $this->db()->prepare($sql);
+          $myPrep->bind_param("sssss",$sCounty, $sCity, $sAddress, $sZipCode, $sPhone);
+          $result =  $myPrep->execute();
+          if ($result === TRUE) {
            
-    //                      echo "New record created successfully. ". $sql . "<br>";
-    //                      } else {
-    //                        echo "Error: " . $sql . "<br>" . $this->db()->error;
-    //                      }
+                          echo "New record created successfully. ". $sql . "<br>";
+              } else {
+                            echo "Error: " . $sql . "<br>" . $this->db()->error;
+                          }
 
-    //         return $result;
-    //  }
+             return $result;
+      }
 
     //get Shipping address by user id
     public function getShippingAddressByUserId($userId){
