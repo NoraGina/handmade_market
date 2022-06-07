@@ -37,7 +37,7 @@ class ShippingAddressModel extends DBModel
   public function updateShippingAddress($sCounty, $sCity, $sAddress, $sZipCode, $sPhone){
      $id= $_GET['id'];
     
-    $sql = "UPDATE `shipping_address` SET   `county` = '$sCounty',`city` = '$sCity', `address` = '$sAddress',  `zipCode` = '$sZipCode', `phone` = '$sPhone' WHERE `id` = $id;";
+    $sql = "UPDATE `shipping_address` SET   `county` = '$sCounty',`city` = '$sCity', `address` = '$sAddress',  `zipCode` = '$sZipCode', `phone` = '$sPhone' WHERE `userId` = $id;";
     
       $result = $this->db()->query($sql);
       if ($result === TRUE) {
