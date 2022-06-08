@@ -35,7 +35,7 @@ class AddToCartController extends AppController
                             
                         }else{
                             echo '<script type="text/javascript">'; 
-                            echo 'alert("Poți cumpăra produse livrate de același magazin")' ;
+                            echo 'alert("Poți cumpăra doar din același magazin");'; 
                             echo 'window.location = "home";';
                             echo '</script>';
                      
@@ -48,8 +48,8 @@ class AddToCartController extends AppController
                                     //   echo"</pre>"; 
                    }
                          // Prevent form resubmission...
-                         //header("Refresh:2; url=home"); 
-                         header("Location:home");
+                         header("Refresh:0; url=home"); 
+                         //header("Location:home");
                         
                      
                       

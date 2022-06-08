@@ -107,8 +107,7 @@ class UpdateFormAddressController extends AppController
                                         <div class='mb-3 row'>
                                             <label for='exampleFormControlTextarea2' class='col-sm-3 col-form-label'>Adresa<span class='text-danger'>*</span></label>
                                             <div class='col-sm-9'>
-                                                <textarea class='form-control text-start' style='overflow: auto' name='sAddress' value='".$address['address']."' id='exampleFormControlTextarea2' rows='2'required>
-                                                ".$address['address']."</textarea>
+                                                <textarea class='form-control text-start' style='overflow: auto' name='sAddress' value='".$address['address']."' id='exampleFormControlTextarea2' rows='2'required>".$address['address']."</textarea>
                                             </div>
                                         </div>
                                 

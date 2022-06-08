@@ -6,7 +6,7 @@ class AboutController extends AppController
     }
 
     public function init(){
-        echo __FILE__;
+       
         session_start();
         if(isset($_SESSION['user'])){
         $data['title'] = 'About Private PAGE';
