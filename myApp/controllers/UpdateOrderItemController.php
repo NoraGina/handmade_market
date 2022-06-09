@@ -9,22 +9,23 @@ class UpdateOrderItemController extends AppController
        // echo __FILE__;
         session_start();
         if (isset($_SESSION['user']) && isset($_SESSION['cart']) ){
-            $productId = (int)$_POST['id'];
-            $id = (int)$_POST['id'];
-            $name = $_POST['name'];
-            $price = doubleval($_POST['price']);
-            $quantity = (int)$_POST['itemQuantity'];
+           
+             $items =$_SESSION['cart'];
             
-            
-            $items =$_SESSION['cart'];
-            $_SESSION['cart'] =$items;
-            
+           
             foreach($items as $key=>$value){
-                $_SESSION['cart'][$key]['itemQuantity']=$quantity;
+                $quantity= $_POST['itemQuantity'][$key];
+                $_SESSION['cart'][$key]['itemQuantity']=(int)$quantity;
+                
+                
+               }
+                
 
-            }
             
-           // header("Refresh:7;url=cart");
+            //  echo"<pre>";
+            //  echo var_dump($_SESSION['cart']);
+            //  echo"</pre>";
+          //  header("Refresh:7;url=cart");
             header("Location:cart");
         }
     }
