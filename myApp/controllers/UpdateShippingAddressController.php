@@ -26,8 +26,9 @@ class UpdateShippingAddressController extends AppController
             
             $newAddress = $shippingAddress->updateShippingAddress($sCounty, $sCity, $sAddress, $sZipCode, $sPhone);
             if( $newAddress){
-                header("Refresh:6; url=../home");
-               // header('Location:../home');
+                //header("location:javascript://history.go(-1)");
+                //header("Refresh:6; url=../home");
+                header('Location:../home');
             }else{
                 echo"Ceva nu a mers bine";
                 header("Refresh:6; url=../home");

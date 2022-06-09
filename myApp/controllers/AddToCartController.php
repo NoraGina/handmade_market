@@ -25,12 +25,22 @@ class AddToCartController extends AppController
                            //check if product is from same store
                         $checkIfStoreAreSame = array_column($_SESSION['cart'], 'storeId');
                         if( (empty($_SESSION['cart'])) || (in_array($storeId, $checkIfStoreAreSame) &&  !empty($_SESSION['cart']))){
-                            //add product into cart
-                            $_SESSION['cart'][$productId] = array('id'=>$productId,
-                            'name'=>$name,
-                            'price'=>$price,
-                            'itemQuantity'=>$itemQuantity,
-                            'storeId'=>$storeId);
+                               //check if product is already in cart
+                            $checkIfProductAlreadyExist = array_column($_SESSION['cart'], 'id');
+                            if( (empty($_SESSION['cart'])) || (!in_array($productId, $checkIfProductAlreadyExist) &&  !empty($_SESSION['cart']))){
+                                    //add product into cart
+                                    $_SESSION['cart'][$productId] = array('id'=>$productId,
+                                    'name'=>$name,
+                                    'price'=>$price,
+                                    'itemQuantity'=>$itemQuantity,
+                                    'storeId'=>$storeId);
+                                }else{
+                                echo '<script type="text/javascript">'; 
+                                echo 'alert("Produsul este în coș deja! Poți să-l editezi în coș");'; 
+                                echo 'window.location = "home";';
+                                echo '</script>';
+                                }
+                           
                             
                             
                         }else{
@@ -42,14 +52,11 @@ class AddToCartController extends AppController
                         }  
                         
                       
-                      
-                                    //   echo"<pre>";
-                                    //   var_dump($_SESSION['cart']);
-                                    //   echo"</pre>"; 
                    }
                          // Prevent form resubmission...
+                         //header("location:javascript://history.go(-1)");
                          header("Refresh:0; url=home"); 
-                         //header("Location:home");
+                        // header("Location:home");
                         
                      
                       
